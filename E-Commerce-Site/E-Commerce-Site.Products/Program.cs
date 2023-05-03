@@ -9,6 +9,9 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddControllers();
 
+        builder.Services
+            .AddProducts();
+
         builder.Services.AddCors(options =>
         {
             options.AddPolicy(name: myAllowSpecificOrigins,
