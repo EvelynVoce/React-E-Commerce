@@ -15,7 +15,7 @@ public class ProductsController : ControllerBase
         _productsService = registrationService;
     }
 
-    [HttpPost("api/getProducts")]
+    [HttpGet("api/getProducts")]
     public void ConfirmAttendance()
     {
         _productsService.GetProducts();

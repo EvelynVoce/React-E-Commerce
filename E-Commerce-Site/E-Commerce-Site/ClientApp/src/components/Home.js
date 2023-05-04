@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import refreshItems from '../DynamicJS/DynamicItems'
+import {getProducts} from "../api/products";
 
 export class Home extends Component {
   static displayName = Home.name;
 
     componentDidMount() {
         refreshItems();
+        getProducts();
     }
 
   render () {
