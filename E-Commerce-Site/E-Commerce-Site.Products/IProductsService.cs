@@ -2,5 +2,5 @@
 
 public interface IProductsService
 {
-    void GetProducts();
+    Task GetProducts();
 }

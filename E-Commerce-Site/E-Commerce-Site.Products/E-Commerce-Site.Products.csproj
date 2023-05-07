@@ -7,4 +7,18 @@
         <RootNamespace>E_Commerce_Site.Products</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="App.config">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.0.123" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0-preview.2.23128.3" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    </ItemGroup>
+
 </Project>
