@@ -16,8 +16,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("api/getProducts")]
-    public void ConfirmAttendance()
+    public async Task<IActionResult> ConfirmAttendance()
     {
-        _productsService.GetProducts();
+        var products = await _productsService.GetProducts();
+        return Ok(products);
     }
 }

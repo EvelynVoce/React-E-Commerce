@@ -7,9 +7,9 @@ using Models;
 
 public class ProductsService : IProductsService
 {
-    public async Task GetProducts()
+    public async Task<List<Products>> GetProducts()
     {
-        List<Products> results = new List<Products>();
+        var results = new List<Products>();
 
         await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm_Products")))
         {
@@ -19,7 +19,7 @@ public class ProductsService : IProductsService
             SqlDataReader reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                string path = reader[3] == DBNull.Value ? "This Was Null" : (string)reader[3];
+                var path = reader[3] == DBNull.Value ? "This Was Null" : (string)reader[3];
                 results.Add(new Products
                 {
                     Id = reader[0].ToString(),
@@ -36,6 +36,7 @@ public class ProductsService : IProductsService
         {
             Console.WriteLine($"{item.Id}\t{item.Title}\t{item.Description}\t{item.ImagePath}");
         }
-        
+
+        return results;
     }
 }

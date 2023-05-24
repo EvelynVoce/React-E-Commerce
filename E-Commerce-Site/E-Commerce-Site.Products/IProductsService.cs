@@ -2,5 +2,5 @@
 
 public interface IProductsService
 {
-    Task GetProducts();
+    Task<List<Models.Products>> GetProducts();
 }
