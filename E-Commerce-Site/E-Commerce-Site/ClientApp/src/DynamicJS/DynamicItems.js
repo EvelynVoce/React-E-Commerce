@@ -1,6 +1,8 @@
-﻿export default async function refreshItems() {
+﻿import {getProducts} from "../api/products";
+
+export default async function refreshItems() {
     await clearItems();
-    const itemData = await getItems();
+    const itemData = await getProducts();
     await displayItemContent(itemData);
 }
 
@@ -11,28 +13,21 @@ async function clearItems() {
     }
 }
 
-async function getItems() {
-    const path = "test.json";
-    const itemContent = await fetch(path);
-    return itemContent.json();
-}
-
 async function displayItemContent(itemData){
     itemData.forEach(item => {
+        console.log(item);
         const card = document.createElement("div");
-        card.className="col mb-4 itemCard";
+        card.className="col mb-3 itemCard";
         card.innerHTML = 
             `
-            <div class="card h-100">
+            <div class="card h-500">
                 <div class="card-body">
-                    <h5 class="card-title">${item.title}</h5>
-                    <p class="card-text">${item.description}</p>
-                    <div class="col-md-6 mt-4">
+                    <h5 class="card-title mb-5" style="height: 25px;">${item.title}</h5>
+                    <div class="col-md-6 mt-4 item_images">
                         <img
-                          src=""
+                          src="images/${item.imagePath}"
                           alt="${item.alt}"
                           class="img-fluid"
-                          width="1200"
                         />
                     </div>
                 </div>

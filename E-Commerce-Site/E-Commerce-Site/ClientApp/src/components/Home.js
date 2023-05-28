@@ -7,14 +7,13 @@ export class Home extends Component {
 
     componentDidMount() {
         refreshItems();
-        getProducts();
     }
 
   render () {
     return (
         <div>
-            <h1>Get in loser, we're going shopping!</h1>
-            <div id="container" className="row row-cols-1 row-cols-md-5"></div>
+            <h1 className="mb-5">Get in loser, we're going shopping!</h1>
+            <div id="container" className="row row-cols-1 row-cols-md-4"></div>
         </div>
     );
   }

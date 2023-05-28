@@ -12,3 +12,16 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+
+.item_images {
+  height:170px;
+  width:auto;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  height: 520px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
