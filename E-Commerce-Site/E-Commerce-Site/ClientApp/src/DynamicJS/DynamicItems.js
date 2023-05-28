@@ -20,16 +20,14 @@ async function displayItemContent(itemData){
         card.className="col mb-3 itemCard";
         card.innerHTML = 
             `
-            <div class="card h-500">
+            <div class="card h-100">
+                <img
+                    src="images/${item.imagePath}"
+                    alt="${item.alt}"
+                    class=card-img-top "img-fluid"
+                />
                 <div class="card-body">
-                    <h5 class="card-title mb-5" style="height: 25px;">${item.title}</h5>
-                    <div class="col-md-6 mt-4 item_images">
-                        <img
-                          src="images/${item.imagePath}"
-                          alt="${item.alt}"
-                          class="img-fluid"
-                        />
-                    </div>
+                    <h5 class="card-title mb-5">${item.title}</h5>
                 </div>
             </div>
              `
