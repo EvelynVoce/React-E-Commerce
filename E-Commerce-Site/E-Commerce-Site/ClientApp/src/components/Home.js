@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
-import refreshItems from '../DynamicJS/DynamicItems'
 import {getProducts} from "../api/products";
+import ProductCards from "./ProductCards";
+
 
 export class Home extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          jsonData: [],
+      };
+  }
+    
   static displayName = Home.name;
 
-    componentDidMount() {
-        refreshItems();
+    async componentDidMount() {
+        const data = await getProducts();
+        this.setState({ jsonData: data });
     }
 
+
+
   render () {
+    const { jsonData } = this.state;    
+    
     return (
         <div>
             <h1 className="mb-5">Get in loser, we're going shopping!</h1>
-            <div id="container" className="row row-cols-1 row-cols-md-4"></div>
+            <ProductCards data={jsonData} />
         </div>
     );
   }
