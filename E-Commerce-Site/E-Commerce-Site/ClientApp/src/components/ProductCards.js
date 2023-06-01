@@ -30,8 +30,8 @@ const Card = ({ id, title, alt, imagePath}) => {
 const ProductCards = ({ data }) => {
     return (
         <div className="row row-cols-1 row-cols-md-4">
-            {data.map((item) => (
-                <Card id={item.id} title={item.title} altText={item.alt} imagePath={item.imagePath} />
+            {data.map((item, index) => (
+                <Card key={index} id={item.id} title={item.title} altText={item.alt} imagePath={item.imagePath} />
             ))}
         </div>
     );

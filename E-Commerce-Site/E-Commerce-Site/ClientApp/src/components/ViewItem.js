@@ -7,7 +7,8 @@ const ViewItem = () => {
 
     function getCookie(name) {
         let cookieArr = document.cookie.split("; ");
-        return cookieArr.find(row => row.startsWith(`${name}=`)).split("=")[1];
+        let cookieValue = cookieArr.find(row => row.startsWith(`${name}=`));
+        return cookieValue ? cookieValue.split("=")[1] : null;
     }
 
     let itemId = getCookie("itemId");
