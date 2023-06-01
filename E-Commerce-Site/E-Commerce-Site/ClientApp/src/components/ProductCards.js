@@ -4,9 +4,10 @@ import { useHistory } from 'react-router-dom';
 const Card = ({ id, title, alt, imagePath}) => {
 
     const history = useHistory();
+    const decodedProductName  = decodeURIComponent(title).replace(/\s+/g, "-");
 
     const handleClick = () => {
-        history.push(`/products/${title}`);
+        history.push(`/products/${decodedProductName }`);
     };
     
     return (
