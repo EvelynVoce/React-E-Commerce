@@ -7,6 +7,7 @@ const Card = ({ id, title, alt, imagePath}) => {
     const decodedProductName  = decodeURIComponent(title).replace(/\s+/g, "-");
 
     const handleClick = () => {
+        document.cookie = "itemId=" + id;
         history.push(`/products/${decodedProductName }`);
     };
     
