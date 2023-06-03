@@ -10,10 +10,7 @@ public class Products
     
     [Column("[title]")]
     public string Title { get; set; } = "";
-    
-    [Column("[description]")]
-    public string Description { get; set; } = "";
-    
+
     [Column("[image_path]")]
     public string ImagePath { get; set; } = "";
 }
