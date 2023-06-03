@@ -13,10 +13,10 @@ export class Home extends Component {
     
   static displayName = Home.name;
 
-    async componentDidMount() {
-        const data = await getProducts();
-        this.setState({ jsonData: data });
-    }
+  async componentDidMount() {
+      const data = await getProducts();
+      this.setState({ jsonData: data });
+  }
 
 
 
