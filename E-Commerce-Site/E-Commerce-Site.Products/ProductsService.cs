@@ -42,7 +42,7 @@ public class ProductsService : IProductsService
             SqlDataReader reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var path = reader[2] == DBNull.Value ? "" : (string)reader[2];
+                var path = reader[3] == DBNull.Value ? "" : (string)reader[3];
                 results.Add(new SpecificProduct()
                 {
                     Id = reader[0].ToString(),

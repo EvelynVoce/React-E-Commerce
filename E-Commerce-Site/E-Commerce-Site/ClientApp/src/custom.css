@@ -24,3 +24,35 @@ code {
   transform: scale(1.05);
   filter: grayscale(50%);
 }
+
+.item-heading {
+  font-size: 22px;
+  text-decoration: underline;
+}
+
+.purchase-link {
+  display: block;
+  color: black;
+  background-color: lightpink;
+  border-color: lightpink;
+}
+
+.purchase-link:hover {
+  background-color: hotpink;
+  border-color: hotpink;
+}
+
+.centered-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .centered-image {
+    margin-left: 0;
+  }
+  .item-heading {
+    font-size: 38px;
+  }
+}

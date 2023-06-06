@@ -1,9 +1,8 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
 import { getItemDetails } from "../api/products";
+import {Button} from "reactstrap";
 
 const ViewItem = () => {
-    const { productName } = useParams();
     const [itemData, setItemData] = useState(null);
 
     useEffect(() => {
@@ -26,15 +25,31 @@ const ViewItem = () => {
     }
 
     return (
-        <div>
-            <h1 className="mb-5">Item View!</h1>
-            <p>Product ID: {itemData.id}</p>
-            <p>Product Name: {itemData.title}</p>
-            <p>Product Description: {itemData.description}</p>
-            <p>Product Cost: £{itemData.cost}</p>
-            <p>Retailer: {itemData.retailer}</p>
-            <a href={itemData.link} target="_blank">Purchase Here</a>
-            
+        <div className="my-5 row">
+            <div className="col-md-8 order-md-2">
+                <div className="row" style={{ overflowX: 'hidden' }}>
+                    <div className="col-9">
+                        <h1 className="item-heading">{itemData.title}</h1>
+                    </div>
+                    <div className="col-3 text-right">
+                        <h1 className="item-heading">£{itemData.cost}</h1>
+                    </div>
+                </div>
+                <hr />
+                <p>{itemData.description}</p>
+                <p>{itemData.retailer}</p>
+                <Button href={itemData.link} className="rounded-pill purchase-link d-none d-md-block" variant="primary" target="_blank" rel="noopener noreferrer">
+                    Purchase Here
+                </Button>
+            </div>
+            <div className="col-md-4 order-md-1">
+                <div className="image-container">
+                    <img src={`images/${itemData.imagePath}`} alt={`images/${itemData.imagePath}`} className="product-image img-fluid centered-image" />
+                </div>
+            </div>
+            <Button href={itemData.link} className="my-3 rounded-pill purchase-link d-block d-md-none" variant="primary" target="_blank" rel="noopener noreferrer">
+                Purchase Here
+            </Button>
         </div>
     );
 }
