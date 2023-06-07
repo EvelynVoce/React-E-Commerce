@@ -13,4 +13,10 @@ public class Products
 
     [Column("[image_path]")]
     public string ImagePath { get; set; } = "";
+    
+    [Column("[Retailer]")]
+    public string Retailer { get; set; } = "";
+    
+    [Column("[cost]")]
+    public decimal Cost { get; set; }
 }

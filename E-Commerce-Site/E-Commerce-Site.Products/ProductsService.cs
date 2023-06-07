@@ -23,6 +23,8 @@ public class ProductsService : IProductsService
                     Id = reader[0].ToString(),
                     Title = (string)reader[1],
                     ImagePath = path,
+                    Retailer = (string)reader[3],
+                    Cost = (decimal)reader[4],
                 });
             }
             await reader.CloseAsync();
