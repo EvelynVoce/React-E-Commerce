@@ -1,26 +1,56 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Card = ({ id, title, imagePath, retailer, cost}) => {
-
+const Card = ({ id, title, imagePath, retailer, cost }) => {
+    const [hoverLiked, setHoverLiked] = useState(false);
+    const [liked, setLiked] = useState(false);
+    
     const history = useHistory();
     const decodedProductName  = decodeURIComponent(title).replace(/\s+/g, "-");
-
+    
     const handleClick = () => {
-        document.cookie = "itemId=" + id;
+        document.cookie = `itemId=${id}`;
         history.push(`/products/${decodedProductName }`);
     };
-    
+
+    const handleHover = () => {
+        setHoverLiked(!liked);
+    };
+
+    const handleHoverOut = () => {
+        setHoverLiked(liked);
+    };
+
+    const handleLike = (e) => {
+        e.stopPropagation();
+        setLiked(!liked);
+    };
+
     return (
         <div className="col mb-3 itemCard" onClick={handleClick}>
             <div className="card h-100" id={id}>
                 <img
                     src={`images/${imagePath}`}
                     alt={title}
-                    className="card-img-top img-fluid"
+                    className="card-img-top img-fluid product_image"
                 />
                 <div className="card-body">
-                    <h5 className="card-title mb-3">{title}</h5>
+                    <div className="row row-cols-12">
+                        <div className="col-10">
+                            <h5 className="card-title mb-3" style={{ height: '50px' }}>
+                                {title}
+                            </h5>
+                        </div>
+                        <div className={`col-2 d-flex justify-content-end like-button-container`}>
+                            <div className="like-button"
+                                 onClick={handleLike}
+                                 onMouseEnter={handleHover}
+                                 onMouseLeave={handleHoverOut}>
+                                <FontAwesomeIcon icon={hoverLiked ? ['fas', 'heart'] : ['far', 'heart']} />
+                            </div>
+                        </div>
+                    </div>
                     <div className="d-flex justify-content-between align-items-center mb-3">
                         <h5>{retailer}</h5>
                         <h5>£{cost}</h5>
