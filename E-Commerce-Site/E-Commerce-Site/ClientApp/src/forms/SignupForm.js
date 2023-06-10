@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {addUser} from "../api/account";
 
 export default function SignupForm() {
     const [username, setUsername] = useState('');
@@ -7,6 +8,8 @@ export default function SignupForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(username, password);
+        addUser(username, password);
+        
     };
 
     return (
@@ -32,7 +35,7 @@ export default function SignupForm() {
                 required
             />
 
-            <button type="submit" className="my-3 rounded-pill purchase-link d-block d-md-none">Register</button>
+            <button type="submit" className="my-3 rounded-pill purchase-link">Register</button>
         </form>
     );
 }

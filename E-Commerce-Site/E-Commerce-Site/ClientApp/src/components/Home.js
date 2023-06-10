@@ -18,8 +18,6 @@ export class Home extends Component {
       this.setState({ jsonData: data });
   }
 
-
-
   render () {
     const { jsonData } = this.state;    
     

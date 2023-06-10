@@ -1,28 +1,50 @@
-var builder = WebApplication.CreateBuilder(args);
+namespace E_Commerce_Site;
 
-// Add services to the container.
+using Products;
+using Users;
 
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+internal class Program
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    internal static async Task Main(string[] args)
+    {
+        const string  myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllers();
+
+        builder.Services
+            .AddProducts()
+            .AddUsers();
+        
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: myAllowSpecificOrigins,
+                policy  =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+    
+        });
+
+        var app = builder.Build();
+
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseRouting();
+
+
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller}/{action=Index}/{id?}");
+        app.UseCors(myAllowSpecificOrigins);
+
+        app.MapFallbackToFile("index.html");
+
+        await app.RunAsync();
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");
-;
-
-app.Run();

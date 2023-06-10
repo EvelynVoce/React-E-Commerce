@@ -9,7 +9,7 @@ public class ProductsService : IProductsService
     public async Task<List<Products>> GetProducts()
     {
         var results = new List<Products>();
-        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm_Products")))
+        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
         {
             SqlCommand command = new SqlCommand("dbo.get_products", connection);
             command.CommandType = CommandType.StoredProcedure;
@@ -35,7 +35,7 @@ public class ProductsService : IProductsService
     public async Task<List<SpecificProduct>> GetItemDetails(string itemId)
     {
         var results = new List<SpecificProduct>();
-        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm_Products")))
+        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
         {
             SqlCommand command = new SqlCommand("dbo.get_item_details", connection);
             command.CommandType = CommandType.StoredProcedure;

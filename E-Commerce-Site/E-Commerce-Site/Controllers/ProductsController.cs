@@ -1,7 +1,7 @@
-﻿namespace E_Commerce_Site.Products.Controllers;
+﻿namespace E_Commerce_Site.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
-
+using E_Commerce_Site.Products;
 
 
 [ApiController]
