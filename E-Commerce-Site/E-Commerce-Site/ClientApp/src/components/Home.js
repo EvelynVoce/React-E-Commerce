@@ -25,7 +25,7 @@ export class Home extends Component {
     
     return (
         <div>
-            <h1 className="mb-5">Get in loser, we're going shopping!</h1>
+            <h1 className="mb-5 my-3">Get in loser, we're going shopping!</h1>
             <ProductCards data={jsonData} />
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Container, Navbar, NavbarBrand, Dropdown, DropdownToggle,DropdownMenu,DropdownItem, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
@@ -11,27 +11,23 @@ const NavMenu = () => {
   };
 
   return (
-    <header>
-      <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-        <Container>
-          <NavbarBrand tag={Link} to="/">Shop</NavbarBrand>
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
-                <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
-                  <DropdownToggle nav caret className="text-dark">
-                    Account
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem tag={Link} to="/signup">Signup</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </NavItem>
-            </ul>
-          </Collapse>
-        </Container>
-      </Navbar>
-    </header>
+      <header>
+        <Navbar color="dark" dark expand="md">
+          <Container>
+            <NavbarBrand href="/">Shop</NavbarBrand>
+            <Nav className="ml-auto" navbar>
+              <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
+                <DropdownToggle nav caret className="text-light">
+                  Account
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem tag={Link} to="/signup">Signup</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+            </Nav>
+          </Container>
+        </Navbar>
+      </header>
   );
 }
 
