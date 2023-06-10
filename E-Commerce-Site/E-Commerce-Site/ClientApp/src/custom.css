@@ -67,3 +67,14 @@ code {
 .like-button {
   color: hotpink;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.form-field {
+  margin: 10px 0 10px 0;
+  padding: 15px;
+}
