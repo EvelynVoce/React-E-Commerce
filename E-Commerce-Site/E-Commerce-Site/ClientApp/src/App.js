@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import './custom.css'
 import ViewItem from "./components/ViewItem";
+import SignupForm from "./forms/SignupForm";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -13,6 +14,7 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route exact path='/products/:productName' component={ViewItem} />
+        <Route exact path='/signup' component={SignupForm} />
       </Layout>
     );
   }
