@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {getProducts} from "../api/products";
 import ProductCards from "./ProductCards";
 
-
 export class Home extends Component {
   constructor(props) {
       super(props);

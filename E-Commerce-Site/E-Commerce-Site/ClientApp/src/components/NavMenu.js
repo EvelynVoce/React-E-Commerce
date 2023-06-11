@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { Container, Navbar, NavbarBrand, Dropdown, DropdownToggle,DropdownMenu,DropdownItem, Nav } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Container, Navbar, NavbarBrand, Nav } from 'reactstrap';
+import {useHistory} from 'react-router-dom';
 import './NavMenu.css';
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const NavMenu = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const history = useHistory();
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleIconClick = () => {
+    history.push('/signup');
   };
+
 
   return (
       <header>
@@ -16,14 +19,11 @@ const NavMenu = () => {
           <Container>
             <NavbarBrand href="/">Shop</NavbarBrand>
             <Nav className="ml-auto" navbar>
-              <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
-                <DropdownToggle nav caret className="text-light">
-                  Account
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem tag={Link} to="/signup">Signup</DropdownItem>
-                </DropdownMenu>
-            </Dropdown>
+              <FontAwesomeIcon
+                  icon={faUser}
+                  style={{color: 'white', cursor: 'pointer' }}
+                  onClick={handleIconClick}
+              />
             </Nav>
           </Container>
         </Navbar>
