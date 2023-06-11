@@ -2,5 +2,5 @@
 using Models;
 public interface IUsersService
 {
-    void AddUser(User definition);
+    Task AddUser(User definition);
 }
