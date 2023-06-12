@@ -42,12 +42,12 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
                                 {title}
                             </h5>
                         </div>
-                        <div className={`col-2 d-flex justify-content-end like-button-container`}>
+                        <div className={`col-2 d-flex justify-content-end`}>
                             <div className="like-button"
                                  onClick={handleLike}
                                  onMouseEnter={handleHover}
                                  onMouseLeave={handleHoverOut}>
-                                <FontAwesomeIcon icon={hoverLiked ? ['fas', 'heart'] : ['far', 'heart']} />
+                                <FontAwesomeIcon style={{ height: '25px' }} icon={hoverLiked ? ['fas', 'heart'] : ['far', 'heart']} />
                             </div>
                         </div>
                     </div>

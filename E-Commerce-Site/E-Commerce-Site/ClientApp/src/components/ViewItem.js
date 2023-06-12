@@ -1,10 +1,26 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { getItemDetails } from "../api/products";
 import {Button} from "reactstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const ViewItem = () => {
     const [itemData, setItemData] = useState(null);
+    const [hoverLiked, setHoverLiked] = useState(false);
+    const [liked, setLiked] = useState(false);
 
+    const handleHover = () => {
+        setHoverLiked(!liked);
+    };
+
+    const handleHoverOut = () => {
+        setHoverLiked(liked);
+    };
+
+    const handleLike = (e) => {
+        e.stopPropagation();
+        setLiked(!liked);
+    };
+    
     useEffect(() => {
         const fetchData = async () => {
             const itemId = getCookie("itemId");
@@ -37,7 +53,18 @@ const ViewItem = () => {
                 </div>
                 <hr />
                 <p>{itemData.description}</p>
-                <p>{itemData.retailer}</p>
+
+                <div style={{ display: 'flex' }}>
+                    <p>{itemData.retailer}</p>
+                    <div className="like-button"
+                         onClick={handleLike}
+                         onMouseEnter={handleHover}
+                         onMouseLeave={handleHoverOut}>
+                        <FontAwesomeIcon style={{ paddingLeft: '20px', height: '25px' }} icon={hoverLiked ? ['fas', 'heart'] : ['far', 'heart']} />
+                    </div>
+                </div>
+                
+                
                 <Button href={itemData.link} className="rounded-pill purchase-link d-none d-md-block" variant="primary" target="_blank" rel="noopener noreferrer">
                     Purchase Here
                 </Button>
