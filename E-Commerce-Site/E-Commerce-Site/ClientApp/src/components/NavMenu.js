@@ -9,7 +9,7 @@ const NavMenu = () => {
   const history = useHistory();
 
   const handleIconClick = () => {
-    history.push('/signup');
+    history.push('/login');
   };
 
 
