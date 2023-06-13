@@ -64,7 +64,6 @@ const ViewItem = () => {
                     </div>
                 </div>
                 
-                
                 <Button href={itemData.link} className="rounded-pill purchase-link d-none d-md-block" variant="primary" target="_blank" rel="noopener noreferrer">
                     Purchase Here
                 </Button>
