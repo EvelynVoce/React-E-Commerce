@@ -28,4 +28,11 @@ public class ProductsController : ControllerBase
         var products = await _productsService.GetItemDetails(itemId);
         return Ok(products);
     }
+    
+    [HttpGet("api/getProductType/{productType}")]
+    public async Task<IActionResult> GetProductType([FromRoute] string productType)
+    {
+        var products = await _productsService.GetProductType(productType);
+        return Ok(products);
+    }
 }

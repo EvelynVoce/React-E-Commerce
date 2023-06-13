@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getProducts } from '../api/products';
+import {getProducts, getProductType} from '../api/products';
 import ProductCards from './ProductCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -19,8 +19,15 @@ const Home = () => {
         }
     };
 
-    const handleItemClick = (item) => {
-        console.log(item);
+    const handleItemClick = async (item) => {
+        let data = [];
+        if (item === "All") {
+            data = await getProducts();
+        }
+        else{
+            data = await getProductType(item);
+        }
+        setJsonData(data);
     };
 
     useEffect(() => {
@@ -50,10 +57,6 @@ const Home = () => {
                                 <li className="dropdown-item" onClick={() => handleItemClick('All')}>. All</li>
                                 <li className="dropdown-item" onClick={() => handleItemClick('Skirts')}>. Skirts</li>
                                 <li className="dropdown-item" onClick={() => handleItemClick('Dresses')}>. Dresses</li>
-                                <li className="dropdown-item" onClick={() => handleItemClick('Shorts')}>. Shorts</li>
-                                <li className="dropdown-item" onClick={() => handleItemClick('Leggings')}>. Leggings</li>
-                                <li className="dropdown-item" onClick={() => handleItemClick('Bikinis')}>. Bikinis</li>
-                                <li className="dropdown-item" onClick={() => handleItemClick('Cardigans')}>. Cardigans</li>
                             </ul>
                         </div>
                     )}
