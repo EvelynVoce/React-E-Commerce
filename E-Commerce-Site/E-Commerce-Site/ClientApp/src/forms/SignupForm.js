@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import {addUser, availableUsername} from "../api/account";
+import {useHistory} from "react-router-dom";
 
 export default function SignupForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
+    const history = useHistory();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (await availableUsername(username)) {
             await addUser(username, password);
+            history.push('/');
+        }
+        else {
+            setError("Username is Already Taken");
         }
     };
 
@@ -24,6 +32,7 @@ export default function SignupForm() {
                 onChange={(event) => setUsername(event.target.value)}
                 required
             />
+            {error && <p style={{ color: 'red' }}>{error}</p>}
 
             <label> Password: </label>
             <input
