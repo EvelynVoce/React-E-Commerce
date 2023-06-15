@@ -20,4 +20,11 @@ public class UsersController : ControllerBase
     {
         await _usersService.AddUser(definition);
     }
+    
+    [HttpGet("api/availableUsername/{username}")]
+    public async Task<IActionResult> GetAvailableUser([FromRoute] string username)
+    {
+        bool available = await _usersService.GetAvailableUser(username);
+        return Ok(available);
+    }
 }

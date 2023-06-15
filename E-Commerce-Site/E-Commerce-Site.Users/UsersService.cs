@@ -9,11 +9,11 @@ public class UsersService : IUsersService
     {
         await using SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm"));
         Guid uniqueId = Guid.NewGuid();
-            
+
         await connection.OpenAsync();
         await using SqlCommand command = new SqlCommand("addUser", connection);
         command.CommandType = CommandType.StoredProcedure;
-        
+
         command.Parameters.AddWithValue("@userId", uniqueId);
         command.Parameters.AddWithValue("@username", user.Username);
         command.Parameters.AddWithValue("@password", user.Password);
@@ -21,4 +21,18 @@ public class UsersService : IUsersService
         await command.ExecuteNonQueryAsync();
     }
 
+    public async Task<bool> GetAvailableUser(string username)
+    {
+        await using SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm"));
+        SqlCommand command = new SqlCommand("dbo.[available_username]", connection);
+        command.CommandType = CommandType.StoredProcedure;
+        command.Parameters.AddWithValue("@username", username);
+
+        await command.Connection.OpenAsync();
+        await using SqlDataReader reader = await command.ExecuteReaderAsync();
+        var isTaken = await reader.ReadAsync();
+
+        await reader.CloseAsync();
+        return !isTaken;
+    }
 }

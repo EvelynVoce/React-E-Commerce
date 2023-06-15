@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {addUser} from "../api/account";
+import {addUser, availableUsername} from "../api/account";
 
 export default function SignupForm() {
     const [username, setUsername] = useState('');
@@ -7,8 +7,9 @@ export default function SignupForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(username, password);
-        await addUser(username, password);
+        if (await availableUsername(username)) {
+            await addUser(username, password);
+        }
     };
 
     return (

@@ -3,4 +3,5 @@ using Models;
 public interface IUsersService
 {
     Task AddUser(User definition);
+    Task<bool> GetAvailableUser(string username);
 }
