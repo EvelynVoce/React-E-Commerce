@@ -7,12 +7,24 @@
 html {
   font-size: 14px;
 }
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.user-icon {
+  color: white;
+  cursor: pointer;
+}
+
+.username {
+  display: inline-block;
+  margin-right: 15px;
+  color: white;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
