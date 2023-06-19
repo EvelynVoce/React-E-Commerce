@@ -41,7 +41,7 @@ const ViewItem = () => {
     }
 
     return (
-        <div className="my-5 row">
+        <div className="my-5 row content">
             <div className="col-md-8 order-md-2">
                 <div className="row" style={{ overflowX: 'hidden' }}>
                     <div className="col-9">

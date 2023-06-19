@@ -26,7 +26,7 @@ const NavMenu = () => {
   
   return (
       <header>
-        <Navbar color="dark" dark expand="md">
+        <Navbar color="dark" dark expand="md" className="fixed-top">
           <Container>
             <NavbarBrand href="/">Shop</NavbarBrand>
             <Nav className="ml-auto" navbar>

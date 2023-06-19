@@ -46,7 +46,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div>
+        <div className="content">
             <div className="mb-5 my-3" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h1>Get in loser, we're going shopping!</h1>
                 <div style={{ position: 'relative' }}>
