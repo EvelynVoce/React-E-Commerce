@@ -5,9 +5,7 @@ import './NavMenu.css';
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const NavMenu = () => {
-  // Example username until user login implemented
-  const [username, setUsername] = useState('Evie');
+const NavMenu = ({ username }) => {
   const [showUsername, setShowUsername] = useState(false);
   
   const history = useHistory();

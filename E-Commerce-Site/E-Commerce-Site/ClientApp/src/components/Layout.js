@@ -6,9 +6,11 @@ export class Layout extends Component {
   static displayName = Layout.name;
 
   render () {
+    const { username } = this.props;
+    
     return (
       <div>
-        <NavMenu />
+        <NavMenu username={username} />
         <Container>
           {this.props.children}
         </Container>

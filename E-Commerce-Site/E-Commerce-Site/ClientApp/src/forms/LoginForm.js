@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useHistory} from "react-router-dom";
 import {login} from "../api/account";
 
-export default function LoginForm() {
+const LoginForm = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
@@ -13,6 +13,7 @@ export default function LoginForm() {
         console.log(username, password);
         var success = await login(username, password);
         console.log(success);
+        onLogin(username);
     };
 
     const handleSignup = (event) => {
@@ -50,3 +51,5 @@ export default function LoginForm() {
         </div>
     );
 }
+
+export default LoginForm;
