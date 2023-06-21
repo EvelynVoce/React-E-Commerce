@@ -230,3 +230,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Stops committing product images
+ClientApp/public/images/

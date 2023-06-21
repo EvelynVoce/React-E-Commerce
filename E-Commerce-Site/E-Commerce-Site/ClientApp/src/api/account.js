@@ -7,3 +7,7 @@ export const addUser = (username, password) => {
 export const availableUsername = (username) => {
     return client.get(`availableUsername/${username}`).then(response => response.data);
 }
+
+export const login = (username, password) => {
+    return client.post(`login`, { username, password }).then(response => response.data);
+}

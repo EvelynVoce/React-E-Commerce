@@ -47,7 +47,7 @@ const Home = () => {
 
     return (
         <div className="content">
-            <div className="mb-5 my-3" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="mb-4 my-3 top-banner" >
                 <h1>Get in loser, we're going shopping!</h1>
                 <div style={{ position: 'relative' }}>
                     <FontAwesomeIcon icon={faFilter} style={{ height: '25px' }} onClick={toggleDropdown}/>

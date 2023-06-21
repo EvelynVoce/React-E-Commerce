@@ -27,4 +27,11 @@ public class UsersController : ControllerBase
         bool available = await _usersService.GetAvailableUser(username);
         return Ok(available);
     }
+    
+    [HttpPost("api/login")]
+    public async Task<IActionResult> Login([FromBody] User definition)
+    {
+        bool successfulLLogin = await _usersService.Login(definition);
+        return Ok(successfulLLogin);
+    }
 }
