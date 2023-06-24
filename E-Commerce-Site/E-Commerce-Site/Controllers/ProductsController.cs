@@ -35,4 +35,11 @@ public class ProductsController : ControllerBase
         var products = await _productsService.GetProductType(productType);
         return Ok(products);
     }
+    
+    [HttpGet("api/getProductTypes")]
+    public async Task<IActionResult> GetProductTypes()
+    {
+        var productTypes = await _productsService.GetProductTypes();
+        return Ok(productTypes);
+    }
 }

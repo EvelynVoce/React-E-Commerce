@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {getProducts, getProductType} from '../api/products';
+import {getProducts, getProductType, getProductTypes} from '../api/products';
 import ProductCards from './ProductCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
-    const filterOptions = ['All', 'Skirts', 'Dresses']; // Array of filter options
-
     const [jsonData, setJsonData] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [filterOptions, setFilterOptions] = useState([]);
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
@@ -43,6 +42,8 @@ const Home = () => {
         const fetchData = async () => {
             const data = await getProducts();
             setJsonData(data);
+            const product_types = ['All', ...await getProductTypes()];
+            setFilterOptions(product_types);
         };
         fetchData();
     }, []);

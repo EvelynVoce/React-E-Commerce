@@ -87,5 +87,23 @@ public class ProductsService : IProductsService
         }
         return results;
     }
+    
+    public async Task<List<string>> GetProductTypes()
+    {
+        var results = new List<string>();
+        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
+        {
+            SqlCommand command = new SqlCommand("dbo.get_product_types", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                results.Add((string)reader[0]);
+            }
+            await reader.CloseAsync();
+        }
+        return results;
+    }
 
 }

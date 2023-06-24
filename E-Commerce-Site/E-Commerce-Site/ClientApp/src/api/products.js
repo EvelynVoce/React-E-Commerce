@@ -11,3 +11,7 @@ export const getItemDetails = (id) => {
 export const getProductType = (product_type) => {
     return client.get(`getProductType/${product_type}`).then(response => response.data);
 }
+
+export const getProductTypes = () => {
+    return client.get(`getProductTypes`).then(response => response.data);
+}
