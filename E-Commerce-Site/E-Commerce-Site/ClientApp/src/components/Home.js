@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
+    const filterOptions = ['All', 'Skirts', 'Dresses']; // Array of filter options
+
     const [jsonData, setJsonData] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
@@ -54,9 +56,11 @@ const Home = () => {
                     {showDropdown && (
                         <div ref={dropdownRef} className="filter_dropdown">
                             <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                                <li className="dropdown-item" onClick={() => handleItemClick('All')}>. All</li>
-                                <li className="dropdown-item" onClick={() => handleItemClick('Skirts')}>. Skirts</li>
-                                <li className="dropdown-item" onClick={() => handleItemClick('Dresses')}>. Dresses</li>
+                                {filterOptions.map((option) => (
+                                    <li key={option} className="dropdown-item" onClick={() => handleItemClick(option)}>
+                                        {option}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     )}
