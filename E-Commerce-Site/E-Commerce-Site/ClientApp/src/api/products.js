@@ -15,3 +15,7 @@ export const getProductType = (product_type) => {
 export const getProductTypes = () => {
     return client.get(`getProductTypes`).then(response => response.data);
 }
+
+export const search = (criteria) => {
+    return client.get(`search/${criteria}`).then(response => response.data);
+}

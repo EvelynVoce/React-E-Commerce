@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {getProducts, getProductType, getProductTypes} from '../api/products';
+import {getProducts, getProductType, getProductTypes, search} from '../api/products';
 import ProductCards from './ProductCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from "../forms/SearchBar";
 
 const Home = () => {
     const [jsonData, setJsonData] = useState([]);
@@ -21,13 +22,12 @@ const Home = () => {
     };
 
     const handleItemClick = async (item) => {
-        let data = [];
-        if (item === "All") {
-            data = await getProducts();
-        }
-        else{
-            data = await getProductType(item);
-        }
+        const data = item === "All" ? await getProducts() : await getProductType(item);
+        setJsonData(data);
+    };
+
+    const handleSearch = async (searchTerm) => {
+        const data = searchTerm === '' ? await getProducts() : await search(searchTerm);
         setJsonData(data);
     };
 
@@ -52,6 +52,7 @@ const Home = () => {
         <div className="content">
             <div className="mb-4 my-3 top-banner" >
                 <h1>Get in loser, we're going shopping!</h1>
+                <SearchBar onSearch={handleSearch} />
                 <div style={{ position: 'relative' }}>
                     <FontAwesomeIcon icon={faFilter} style={{ height: '25px' }} onClick={toggleDropdown}/>
                     {showDropdown && (

@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using E_Commerce_Site.Products;
+using Products.Models;
 
 
 [ApiController]
@@ -41,5 +42,12 @@ public class ProductsController : ControllerBase
     {
         var productTypes = await _productsService.GetProductTypes();
         return Ok(productTypes);
+    }
+    
+    [HttpGet("api/search/{criteria}")]
+    public async Task<IActionResult> Search([FromRoute] string criteria)
+    {
+        var matchedProducts = await _productsService.Search($"%{criteria}%");
+        return Ok(matchedProducts);
     }
 }
