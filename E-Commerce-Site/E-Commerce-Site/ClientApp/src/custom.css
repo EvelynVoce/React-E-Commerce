@@ -93,9 +93,21 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
-
 .top-banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Search Bar */
+.input-style {
+  padding: 10px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+.button-style {
+  padding: 10px 20px;
+  background-color: lightpink;
+  cursor: pointer;
 }
