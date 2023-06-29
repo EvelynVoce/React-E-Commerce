@@ -54,7 +54,7 @@ const Home = () => {
                 <h1>Get in loser, we're going shopping!</h1>
                 <SearchBar onSearch={handleSearch} />
                 <div style={{ position: 'relative' }}>
-                    <FontAwesomeIcon icon={faFilter} style={{ height: '25px' }} onClick={toggleDropdown}/>
+                    <FontAwesomeIcon icon={faFilter} className="filter-icon" onClick={toggleDropdown}/>
                     {showDropdown && (
                         <div ref={dropdownRef} className="filter_dropdown">
                             <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>

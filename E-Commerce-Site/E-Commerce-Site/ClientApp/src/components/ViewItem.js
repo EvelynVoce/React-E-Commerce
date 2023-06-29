@@ -42,6 +42,13 @@ const ViewItem = () => {
 
     return (
         <div className="my-5 row content">
+            
+            
+            
+            
+            
+            
+            
             <div className="col-md-8 order-md-2">
                 <div className="row" style={{ overflowX: 'hidden' }}>
                     <div className="col-9">
@@ -63,16 +70,32 @@ const ViewItem = () => {
                         <FontAwesomeIcon style={{ paddingLeft: '20px', height: '25px' }} icon={hoverLiked ? ['fas', 'heart'] : ['far', 'heart']} />
                     </div>
                 </div>
-                
                 <Button href={itemData.link} className="rounded-pill purchase-link d-none d-md-block" variant="primary" target="_blank" rel="noopener noreferrer">
+                    Add to Cart
+                </Button>
+                <Button href={itemData.link} className="rounded-pill purchase-link d-none d-md-block my-3" variant="primary" target="_blank" rel="noopener noreferrer">
                     Purchase Here
                 </Button>
             </div>
+
             <div className="col-md-4 order-md-1">
+                <div className="card h-100">
+                    <img
+                        src={`images/${itemData.imagePath}`}
+                        className="card-img-top img-fluid product_image"
+                        alt="test"/>
+                </div>
+            </div>
+            
+{/*            <div className="col-md-4 order-md-1">
                 <div className="image-container">
                     <img src={`images/${itemData.imagePath}`} alt={`images/${itemData.imagePath}`} className="product-image img-fluid centered-image" />
                 </div>
-            </div>
+            </div>*/}
+            
+            <Button href={itemData.link} className="my-3 rounded-pill purchase-link d-block d-md-none" variant="primary" target="_blank" rel="noopener noreferrer">
+                Add to Cart
+            </Button>
             <Button href={itemData.link} className="my-3 rounded-pill purchase-link d-block d-md-none" variant="primary" target="_blank" rel="noopener noreferrer">
                 Purchase Here
             </Button>

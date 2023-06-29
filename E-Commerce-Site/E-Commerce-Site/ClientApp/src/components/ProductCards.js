@@ -28,8 +28,8 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
     };
 
     return (
-        <div className="col mb-3 itemCard">
-            <div className="card h-100" id={id} onClick={handleClick}>
+        <div className="col mb-3">
+            <div className="card product_card h-100" id={id} onClick={handleClick}>
                 <img
                     src={`images/${imagePath}`}
                     alt={title}

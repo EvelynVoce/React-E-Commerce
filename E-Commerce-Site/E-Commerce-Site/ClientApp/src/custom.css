@@ -7,7 +7,11 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.card:hover {
+.product_card {
+  cursor: pointer;
+}
+
+.product_card:hover {
   transform: scale(1.05);
 }
 
@@ -47,13 +51,9 @@
   border-color: hotpink;
 }
 
-/* Like button */
-.like-button:hover {
-  color: hotpink;
-}
-
 .like-button {
   color: hotpink;
+  cursor: pointer;
 }
 
 /* Forms */
@@ -69,6 +69,11 @@
 }
 
 /* Filters*/
+.filter-icon {
+  height: 25px;
+  cursor: pointer;
+}
+
 .filter_dropdown {
   position: absolute;
   top: 100%;
