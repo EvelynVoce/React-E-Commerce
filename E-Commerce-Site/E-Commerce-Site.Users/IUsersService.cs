@@ -4,5 +4,5 @@ public interface IUsersService
 {
     Task AddUser(User definition);
     Task<bool> GetAvailableUser(string username);
-    Task<bool> Login(User definition);
+    Task<Guid?> Login(User definition);
 }

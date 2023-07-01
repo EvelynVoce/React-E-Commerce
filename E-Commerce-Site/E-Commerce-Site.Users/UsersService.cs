@@ -36,7 +36,7 @@ public class UsersService : IUsersService
         return !isTaken;
     }
     
-    public async Task<bool> Login(User user)
+    public async Task<Guid?> Login(User user)
     {
         await using SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm"));
         SqlCommand command = new SqlCommand("dbo.[login]", connection);
@@ -46,8 +46,19 @@ public class UsersService : IUsersService
         
         await command.Connection.OpenAsync();
         await using SqlDataReader reader = await command.ExecuteReaderAsync();
+        
         var isFound = await reader.ReadAsync();
-        await reader.CloseAsync();
-        return isFound;
+        if (isFound)
+        {
+            var itemId = reader.GetGuid(0);
+            await reader.CloseAsync();
+            return itemId;
+        }
+        else
+        {
+            await reader.CloseAsync();
+            return null;
+        }
+        
     }
 }

@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
     [HttpPost("api/login")]
     public async Task<IActionResult> Login([FromBody] User definition)
     {
-        bool successfulLLogin = await _usersService.Login(definition);
+        Guid? successfulLLogin = await _usersService.Login(definition);
         return Ok(successfulLLogin);
     }
 }

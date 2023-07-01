@@ -10,10 +10,10 @@ const LoginForm = ({ onLogin }) => {
     
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const success = await login(username, password);
-        
-        if (success) {
-            onLogin(username);
+        const userId = await login(username, password);
+
+        if (userId) {
+            onLogin(username, userId);
             history.push('/');
         }
     };
