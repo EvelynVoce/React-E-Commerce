@@ -2,18 +2,21 @@
 import { getItemDetails } from "../api/products";
 import {Button} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {addItemToCart} from "../api/cart";
 
 const ViewItem = ({ userId }) => {
     const [itemData, setItemData] = useState(null);
     const [hoverLiked, setHoverLiked] = useState(false);
     const [liked, setLiked] = useState(false);
     
-    const addItemToCart = () => {
+    const handleAddToCart = async () => {
         const itemId = getCookie("itemId");
         const quantity = 1;
-        
+
+        console.log(itemId);
         //Send to backend where it then generates cartID and writes to db 
-        
+        await addItemToCart(userId, itemId, quantity);
+
     }
 
     const handleHover = () => {
@@ -71,7 +74,7 @@ const ViewItem = ({ userId }) => {
                         <FontAwesomeIcon style={{ paddingLeft: '20px', height: '25px' }} icon={hoverLiked ? ['fas', 'heart'] : ['far', 'heart']} />
                     </div>
                 </div>
-                <Button onClick={addItemToCart} className="rounded-pill purchase-link d-none d-md-block" style={{width: "100%"}} variant="primary" target="_blank" rel="noopener noreferrer">
+                <Button onClick={handleAddToCart} className="rounded-pill purchase-link d-none d-md-block" style={{width: "100%"}} variant="primary" target="_blank" rel="noopener noreferrer">
                     Add to Cart
                 </Button>
                 <Button href={itemData.link} className="rounded-pill purchase-link d-none d-md-block my-3" variant="primary" target="_blank" rel="noopener noreferrer">
@@ -88,7 +91,7 @@ const ViewItem = ({ userId }) => {
                 </div>
             </div>
             
-            <Button onClick={addItemToCart} className="my-3 rounded-pill purchase-link d-block d-md-none" variant="primary" target="_blank" rel="noopener noreferrer">
+            <Button onClick={handleAddToCart} className="my-3 rounded-pill purchase-link d-block d-md-none" variant="primary" target="_blank" rel="noopener noreferrer">
                 Add to Cart
             </Button>
             <Button href={itemData.link} className="my-3 rounded-pill purchase-link d-block d-md-none" variant="primary" target="_blank" rel="noopener noreferrer">

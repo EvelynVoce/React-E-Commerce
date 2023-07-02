@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using E_Commerce_Site.Controllers;
+using Microsoft.VisualBasic.CompilerServices;
+
 namespace E_Commerce_Site;
 
 using Products;
 using Users;
-
+using Cart;
 internal class Program
 {
     internal static async Task Main(string[] args)
@@ -14,7 +18,8 @@ internal class Program
 
         builder.Services
             .AddProducts()
-            .AddUsers();
+            .AddUsers()
+            .AddCart();
         
         builder.Services.AddCors(options =>
         {
