@@ -12,6 +12,9 @@ const NavMenu = ({ username }) => {
   
   const history = useHistory();
 
+  const handleHomeClick = () => {
+    history.push('/');
+  }
   const handleCartClick = () => {
 /*    history.push('/login');*/
   };
@@ -33,7 +36,7 @@ const NavMenu = ({ username }) => {
       <header>
         <Navbar color="dark" dark expand="md" className="fixed-top">
           <Container>
-            <NavbarBrand href="/">Shop</NavbarBrand>
+            <NavbarBrand className="nav-icon" onClick={handleHomeClick}>Shop</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <FontAwesomeIcon
                   icon={faShoppingBag}
