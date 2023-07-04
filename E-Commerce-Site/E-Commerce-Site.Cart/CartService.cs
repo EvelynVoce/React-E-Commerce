@@ -1,8 +1,10 @@
-﻿namespace E_Commerce_Site.Cart;
+﻿using System.Xml;
+
+namespace E_Commerce_Site.Cart;
 using System.Data;
 using System.Data.SqlClient;
 using Models;
-
+using Products.Models;
 public class CartService : ICartService
 {
     public async Task AddItemToCart(CartItem cart)
@@ -20,5 +22,26 @@ public class CartService : ICartService
         command.Parameters.AddWithValue("@quantity", cart.Quantity);
 
         await command.ExecuteNonQueryAsync();
+    }
+    
+    public async Task<List<Guid>> GetCartProductIds(string userId)
+    {
+        var results = new List<Guid>();
+        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
+        {
+            SqlCommand command = new SqlCommand("dbo.get_cart_product_ids", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@userId", userId);
+            command.Connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                results.Add(
+                    Guid.Parse(reader[0].ToString())
+                );
+            }
+            await reader.CloseAsync();
+        }
+        return results;
     }
 }

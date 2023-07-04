@@ -3,3 +3,7 @@
 export const addItemToCart = (userID, productID, quantity) => {
     return client.post('addItemToCart', { userID, productID, quantity }).then(response => response.data);
 }
+
+export const getCartItems = (userID) => {
+    return client.get(`getCartItems/${userID}`).then(response => response.data);
+}

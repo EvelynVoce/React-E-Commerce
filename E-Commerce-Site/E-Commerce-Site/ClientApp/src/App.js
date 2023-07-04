@@ -17,7 +17,7 @@ const App = () => {
     };
     
     return (
-      <Layout username={username}>
+      <Layout username={username} userId={userID}>
         <Route exact path='/' component={Home} />
         <Route exact path='/products/:productName'>
             <ViewItem userId={userID}/>

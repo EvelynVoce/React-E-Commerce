@@ -28,6 +28,14 @@ public class CartController : ControllerBase
         
         await _cartService.AddItemToCart(cart);
     }
+    
+    [HttpGet("api/getCartItems/{userId}")]
+    public async Task<IActionResult> GetCartProductIds([FromRoute] string userId)
+    {
+        Console.WriteLine("got here\n\n\n");
+        var products = await _cartService.GetCartProductIds(userId);
+        return Ok(products);
+    }
 }
 
 
