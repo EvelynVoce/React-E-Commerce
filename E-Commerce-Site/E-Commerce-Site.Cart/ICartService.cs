@@ -4,4 +4,5 @@ public interface ICartService
 {
     Task AddItemToCart(CartItem definition);
     Task<List<Guid>> GetCartProductIds(string userId);
+    Task<List<Products.Models.Products>> GetProductsInCart(string productIdsInCart);
 }

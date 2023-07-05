@@ -44,4 +44,31 @@ public class CartService : ICartService
         }
         return results;
     }
+    
+    public async Task<List<Products>> GetProductsInCart(string productIdsInCart)
+    {
+        var results = new List<Products>();
+        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
+        {
+            SqlCommand command = new SqlCommand("dbo.get_products_in_cart", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@productIdList", productIdsInCart);
+            command.Connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var path = reader[2] == DBNull.Value ? "" : (string)reader[2];
+                results.Add(new Products
+                {
+                    Id = reader[0].ToString(),
+                    Title = (string)reader[1],
+                    ImagePath = path,
+                    Retailer = (string)reader[3],
+                    Cost = (decimal)reader[4],
+                });
+            }
+            await reader.CloseAsync();
+        }
+        return results;
+    }
 }

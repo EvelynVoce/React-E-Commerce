@@ -7,3 +7,7 @@ export const addItemToCart = (userID, productID, quantity) => {
 export const getCartItems = (userID) => {
     return client.get(`getCartItems/${userID}`).then(response => response.data);
 }
+
+export const getProductsInCart = (productIdsInCart) => {
+    return client.get(`getProductsInCart/${productIdsInCart}`).then(response => response.data);
+}

@@ -6,7 +6,7 @@ import './NavMenu.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
-import {getCartItems} from "../api/cart";
+import {getCartItems, getProductsInCart} from "../api/cart";
 
 const NavMenu = ({ username, userId }) => {
   const [showUsername, setShowUsername] = useState(false);
@@ -17,13 +17,12 @@ const NavMenu = ({ username, userId }) => {
     history.push('/');
   }
   const handleCartClick = async () => {
-    /*    history.push('/login');*/
     console.log(userId);
     const productList = await getCartItems(userId);
-    console.log(productList);
-    
+    console.log(productList.toString());
+    const productsInCart = await getProductsInCart(productList);
+    console.log(productsInCart);
   };
-
   
   const handleUserClick = () => {
     history.push('/login');
