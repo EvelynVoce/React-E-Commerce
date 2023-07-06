@@ -6,6 +6,7 @@ import './custom.css'
 import ViewItem from "./components/ViewItem";
 import SignupForm from "./forms/SignupForm";
 import LoginForm from "./forms/LoginForm";
+import ViewCart from "./components/ViewCart";
 
 const App = () => {
     const [username, setUsername] = useState('');
@@ -18,7 +19,11 @@ const App = () => {
     
     return (
       <Layout username={username} userId={userID}>
-        <Route exact path='/' component={Home} />
+
+        <Route exact path='/'>
+            <Home/>
+        </Route>
+          
         <Route exact path='/products/:productName'>
             <ViewItem userId={userID}/>
         </Route>
@@ -26,6 +31,10 @@ const App = () => {
         <Route exact path='/login'>
             <LoginForm onLogin={handleLogin}/>
         </Route>
+
+        <Route exact path='/viewCart'>
+            <ViewCart userId={userID}/>
+        </Route>  
       </Layout>
     );
 }

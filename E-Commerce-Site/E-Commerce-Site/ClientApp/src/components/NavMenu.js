@@ -22,6 +22,8 @@ const NavMenu = ({ username, userId }) => {
     console.log(productList.toString());
     const productsInCart = await getProductsInCart(productList);
     console.log(productsInCart);
+    history.push('/viewCart');
+    
   };
   
   const handleUserClick = () => {
