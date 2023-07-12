@@ -17,11 +17,6 @@ const NavMenu = ({ username, userId }) => {
     history.push('/');
   }
   const handleCartClick = async () => {
-    console.log(userId);
-    const productList = await getCartItems(userId);
-    console.log(productList.toString());
-    const productsInCart = await getProductsInCart(productList);
-    console.log(productsInCart);
     history.push('/viewCart');
     
   };

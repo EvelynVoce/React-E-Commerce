@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
-import CardCards from './CartCards';
 import {getCartItems, getProductsInCart} from "../api/cart";
 import CartCards from "./CartCards";
+import {Button} from "reactstrap";
+
 
 const ViewCart = ({userId}) => {
     const [jsonData, setJsonData] = useState([]);
@@ -10,20 +11,21 @@ const ViewCart = ({userId}) => {
     useEffect(() => {
             const fetchData = async () => {
                 const productList = await getCartItems(userId);
-                const productsInCart = await getProductsInCart(productList);
-                setJsonData(productsInCart);
+                setJsonData(productList);
             };
             fetchData();
         }, 
         []);
 
     return (
-        <div className="content">
+        <div className="content" style={{ marginBottom: '100px' }}>
             <div className="mb-4 my-3 top-banner" >
                 <h1>Shopping Cart</h1>
             </div>
             <CartCards data={jsonData} />
-            <h5 className="my-3">Total Cost: £{jsonData.reduce((sum, item) => sum + item.cost, 0)}</h5>
+            <div className="d-flex justify-content-center">
+                <Button className="my-2 rounded-pill purchase-link cart-buy-button">Pay Now: £{jsonData.reduce((sum, item) => sum + (item.cost * item.quantity), 0)}</Button>
+            </div>
         </div>
     );
 };

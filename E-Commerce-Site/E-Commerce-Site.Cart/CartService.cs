@@ -24,47 +24,33 @@ public class CartService : ICartService
         await command.ExecuteNonQueryAsync();
     }
     
-    public async Task<List<Guid>> GetCartProductIds(string userId)
+    public async Task<List<CartProductCombo>> GetCartItems(string userId)
     {
-        var results = new List<Guid>();
+        var results = new List<CartProductCombo>();
         await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
         {
-            SqlCommand command = new SqlCommand("dbo.get_cart_product_ids", connection);
+            SqlCommand command = new SqlCommand("dbo.get_cart_items", connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@userId", userId);
             command.Connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                results.Add(
-                    Guid.Parse(reader[0].ToString())
-                );
-            }
-            await reader.CloseAsync();
-        }
-        return results;
-    }
-    
-    public async Task<List<Products>> GetProductsInCart(string productIdsInCart)
-    {
-        var results = new List<Products>();
-        await using (SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm")))
-        {
-            SqlCommand command = new SqlCommand("dbo.get_products_in_cart", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@productIdList", productIdsInCart);
-            command.Connection.Open();
-            SqlDataReader reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                var path = reader[2] == DBNull.Value ? "" : (string)reader[2];
-                results.Add(new Products
+                Console.WriteLine(reader[0]);
+                Console.WriteLine(reader[1]);
+                Console.WriteLine(reader[2]);
+                Console.WriteLine(reader[3]);
+                Console.WriteLine(reader[4]);
+                Console.WriteLine(reader[5]);
+                var path = reader[3] == DBNull.Value ? "" : (string)reader[3];
+                results.Add( new CartProductCombo
                 {
-                    Id = reader[0].ToString(),
-                    Title = (string)reader[1],
+                    CartId = reader[0].ToString(),
+                    Quantity = (int)reader[1],
+                    Title = (string)reader[2],
                     ImagePath = path,
-                    Retailer = (string)reader[3],
-                    Cost = (decimal)reader[4],
+                    Retailer = (string)reader[4],
+                    Cost = (decimal)reader[5],
                 });
             }
             await reader.CloseAsync();

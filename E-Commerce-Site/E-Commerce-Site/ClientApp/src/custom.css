@@ -116,3 +116,12 @@
   background-color: lightpink;
   cursor: pointer;
 }
+
+.cart_image {
+  width: 25%
+}
+
+.cart-buy-button {
+  width:25%;
+  font-size: 25px;
+}

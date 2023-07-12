@@ -30,16 +30,9 @@ public class CartController : ControllerBase
     }
     
     [HttpGet("api/getCartItems/{userId}")]
-    public async Task<IActionResult> GetCartProductIds([FromRoute] string userId)
+    public async Task<IActionResult> GetCartItems([FromRoute] string userId)
     {
-        var products = await _cartService.GetCartProductIds(userId);
-        return Ok(products);
-    }
-    
-    [HttpGet("api/getProductsInCart/{productIdsInCart}")]
-    public async Task<IActionResult> GetProductsInCart([FromRoute] string productIdsInCart)
-    {
-        var products = await _cartService.GetProductsInCart(productIdsInCart);
+        var products = await _cartService.GetCartItems(userId);
         return Ok(products);
     }
 }

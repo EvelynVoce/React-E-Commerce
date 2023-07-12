@@ -39,3 +39,26 @@ public class CartItem
         Quantity = quantity;
     }
 }
+
+
+[Table("public.cart")]
+public class CartProductCombo
+{
+    [Column("cartID")]
+    public string CartId { get; set; } = "";
+    
+    [Column("Quantity")]
+    public int Quantity { get; set; } = 0;
+    
+    [Column("title")]
+    public string Title { get; set; } = "";
+    
+    [Column("image_path")]
+    public string ImagePath { get; set; } = "";
+    
+    [Column("[Retailer]")]
+    public string Retailer { get; set; } = "";
+    
+    [Column("[cost]")]
+    public decimal Cost { get; set; }
+}
