@@ -35,6 +35,14 @@ public class CartController : ControllerBase
         var products = await _cartService.GetCartItems(userId);
         return Ok(products);
     }
+    
+    
+    [HttpPost("api/updateQuantity")]
+    public async Task UpdateQuantity([FromBody] CartIdClass cart)
+    {
+        await _cartService.UpdateQuantity(cart);
+    }
+    
 }
 
 

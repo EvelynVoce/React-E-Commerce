@@ -1,17 +1,20 @@
 ﻿import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import {updateStoredQuantity} from "../api/cart";
 
 const Card = ({ id, title, initial_quantity, imagePath, retailer, cost }) => {
     const [quantity, setQuantity] = useState(initial_quantity);
 
-    const incrementCount = () => {
-        setQuantity(quantity+1);
+    const incrementCount = async () => {
+        setQuantity(quantity + 1);
+        await updateStoredQuantity(id, 1);
     };
 
-    const decrementCount = () => {
+    const decrementCount = async () => {
         if (quantity > 0) {
-            setQuantity(quantity-1);
+            setQuantity(quantity - 1);
+            await updateStoredQuantity(id, -1);
         }
     };
     
@@ -37,7 +40,7 @@ const CartCards = ({ data }) => {
         <div className="container mt-5">
             <div id="cart-items" className="mt-4">
                 {data.map((item, index) => (
-                    <Card key={index} id={item.id} initial_quantity={item.quantity} title={item.title} imagePath={item.imagePath}
+                    <Card key={index} id={item.cartId} initial_quantity={item.quantity} title={item.title} imagePath={item.imagePath}
                           retailer={item.retailer} cost={item.cost} />
                 ))}
             </div>

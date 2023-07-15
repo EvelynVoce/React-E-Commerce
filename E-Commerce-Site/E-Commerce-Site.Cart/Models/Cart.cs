@@ -62,3 +62,11 @@ public class CartProductCombo
     [Column("[cost]")]
     public decimal Cost { get; set; }
 }
+
+public class CartIdClass
+{
+    public string CartId { get; set; } = "";
+    
+    public int QuantityChange { get; set; } = 0;
+
+}

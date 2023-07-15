@@ -57,4 +57,17 @@ public class CartService : ICartService
         }
         return results;
     }
+    
+    public async Task UpdateQuantity(CartIdClass cart)
+    {
+        await using SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm"));
+        await connection.OpenAsync();
+        await using SqlCommand command = new SqlCommand("[alterQuantity]", connection);
+        command.CommandType = CommandType.StoredProcedure;
+
+        command.Parameters.AddWithValue("@cartId", cart.CartId);
+        command.Parameters.AddWithValue("@quantity_change", cart.QuantityChange);
+
+        await command.ExecuteNonQueryAsync();
+    }
 }
