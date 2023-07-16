@@ -3,18 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import {updateStoredQuantity} from "../api/cart";
 
-const Card = ({ id, title, initial_quantity, imagePath, retailer, cost }) => {
+const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, cost }) => {
     const [quantity, setQuantity] = useState(initial_quantity);
 
     const incrementCount = async () => {
         setQuantity(quantity + 1);
         await updateStoredQuantity(id, 1);
+        triggerEffect();
     };
 
     const decrementCount = async () => {
         if (quantity > 0) {
             setQuantity(quantity - 1);
             await updateStoredQuantity(id, -1);
+            triggerEffect();
         }
     };
     
@@ -35,12 +37,12 @@ const Card = ({ id, title, initial_quantity, imagePath, retailer, cost }) => {
     );
 };
 
-const CartCards = ({ data }) => {
+const CartCards = ({ triggerEffect, data }) => {
     return (
         <div className="container mt-5">
             <div id="cart-items" className="mt-4">
                 {data.map((item, index) => (
-                    <Card key={index} id={item.cartId} initial_quantity={item.quantity} title={item.title} imagePath={item.imagePath}
+                    <Card key={index} triggerEffect={triggerEffect} id={item.cartId} initial_quantity={item.quantity} title={item.title} imagePath={item.imagePath}
                           retailer={item.retailer} cost={item.cost} />
                 ))}
             </div>
