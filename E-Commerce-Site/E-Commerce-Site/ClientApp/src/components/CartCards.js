@@ -2,9 +2,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import {updateStoredQuantity} from "../api/cart";
+import Modal from "react-modal";
 
 const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, cost }) => {
     const [quantity, setQuantity] = useState(initial_quantity);
+    const [showModal, setShowModal] = useState(false);
 
     const incrementCount = async () => {
         setQuantity(quantity + 1);
@@ -13,11 +15,26 @@ const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, 
     };
 
     const decrementCount = async () => {
-        if (quantity > 0) {
+        if (quantity-1 > 0) {
             setQuantity(quantity - 1);
             await updateStoredQuantity(id, -1);
             triggerEffect();
         }
+        else {
+            setShowModal(true);
+        }
+    };
+
+    const handleRemoveItem = async () => {
+        // Remove item from cart
+        
+        triggerEffect();
+
+        setShowModal(false);
+    };
+
+    const handleCancel = () => {
+        setShowModal(false);
     };
     
     return (
@@ -32,6 +49,19 @@ const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, 
                     <span className="mx-4">{quantity}</span>
                     <FontAwesomeIcon onClick={incrementCount} icon={faPlus}/>
                 </div>
+
+                <Modal
+                    isOpen={showModal}
+                    onRequestClose={handleCancel}
+                    className="modal_cart"
+                    contentLabel="Remove Item Modal"
+                >
+                    <p>Are you sure you want to remove this item from your cart?</p>
+                    <div className="button-container">
+                        <button className="mx-2 rounded-pill purchase-link" onClick={handleRemoveItem}>Yes</button>
+                        <button className="mx-2 rounded-pill purchase-link" onClick={handleCancel}>No</button>
+                    </div>
+                </Modal>
             </div>
         </div>
     );
