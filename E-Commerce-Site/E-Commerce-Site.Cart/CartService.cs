@@ -36,12 +36,6 @@ public class CartService : ICartService
             SqlDataReader reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                Console.WriteLine(reader[0]);
-                Console.WriteLine(reader[1]);
-                Console.WriteLine(reader[2]);
-                Console.WriteLine(reader[3]);
-                Console.WriteLine(reader[4]);
-                Console.WriteLine(reader[5]);
                 var path = reader[3] == DBNull.Value ? "" : (string)reader[3];
                 results.Add( new CartProductCombo
                 {
@@ -58,7 +52,7 @@ public class CartService : ICartService
         return results;
     }
     
-    public async Task UpdateQuantity(CartIdClass cart)
+    public async Task UpdateQuantity(QuantityClass cart)
     {
         await using SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm"));
         await connection.OpenAsync();
@@ -67,6 +61,18 @@ public class CartService : ICartService
 
         command.Parameters.AddWithValue("@cartId", cart.CartId);
         command.Parameters.AddWithValue("@quantity_change", cart.QuantityChange);
+
+        await command.ExecuteNonQueryAsync();
+    }
+    
+    public async Task RemoveItem(CartIdItem cart)
+    {
+        await using SqlConnection connection = new SqlConnection(Helper.CnnVal("EComm"));
+        await connection.OpenAsync();
+        await using SqlCommand command = new SqlCommand("[remove_item]", connection);
+        command.CommandType = CommandType.StoredProcedure;
+
+        command.Parameters.AddWithValue("@cartId", cart.CartId);
 
         await command.ExecuteNonQueryAsync();
     }

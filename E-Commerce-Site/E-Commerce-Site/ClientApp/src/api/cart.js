@@ -15,3 +15,7 @@ export const getProductsInCart = (productIdsInCart) => {
 export const updateStoredQuantity = (cartId, quantityChange) => {
     return client.post('updateQuantity', { cartId, quantityChange }).then(response => response.data);
 }
+
+export const removeItem = (cartId) => {
+    return client.post('removeItem', { cartId }).then(response => response.data);
+}

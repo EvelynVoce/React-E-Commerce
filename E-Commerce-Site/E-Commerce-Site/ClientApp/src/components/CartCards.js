@@ -1,23 +1,26 @@
 ﻿import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import {updateStoredQuantity} from "../api/cart";
+import {removeItem, updateStoredQuantity} from "../api/cart";
 import Modal from "react-modal";
 
-const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, cost }) => {
+const Card = ({triggerEffect, cartId, title, initial_quantity, imagePath, retailer, cost }) => {
     const [quantity, setQuantity] = useState(initial_quantity);
     const [showModal, setShowModal] = useState(false);
 
+    const appElement = document.getElementById('root'); // or any other root element of your React app
+
+
     const incrementCount = async () => {
         setQuantity(quantity + 1);
-        await updateStoredQuantity(id, 1);
+        await updateStoredQuantity(cartId, 1);
         triggerEffect();
     };
 
     const decrementCount = async () => {
         if (quantity-1 > 0) {
             setQuantity(quantity - 1);
-            await updateStoredQuantity(id, -1);
+            await updateStoredQuantity(cartId, -1);
             triggerEffect();
         }
         else {
@@ -26,10 +29,8 @@ const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, 
     };
 
     const handleRemoveItem = async () => {
-        // Remove item from cart
-        
+        await removeItem(cartId);
         triggerEffect();
-
         setShowModal(false);
     };
 
@@ -38,7 +39,7 @@ const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, 
     };
     
     return (
-        <div className="card my-3" id={id}>
+        <div className="card my-3" id={cartId}>
             <div className="d-flex">
                 <img src={`images/${imagePath}`} className="card-img-top cart_image" alt="Card image" />
                 <div className="card-body">
@@ -51,6 +52,7 @@ const Card = ({triggerEffect, id, title, initial_quantity, imagePath, retailer, 
                 </div>
 
                 <Modal
+                    appElement={appElement}
                     isOpen={showModal}
                     onRequestClose={handleCancel}
                     className="modal_cart"
@@ -72,7 +74,7 @@ const CartCards = ({ triggerEffect, data }) => {
         <div className="container mt-5">
             <div id="cart-items" className="mt-4">
                 {data.map((item, index) => (
-                    <Card key={index} triggerEffect={triggerEffect} id={item.cartId} initial_quantity={item.quantity} title={item.title} imagePath={item.imagePath}
+                    <Card key={index} triggerEffect={triggerEffect} cartId={item.cartId} initial_quantity={item.quantity} title={item.title} imagePath={item.imagePath}
                           retailer={item.retailer} cost={item.cost} />
                 ))}
             </div>

@@ -38,9 +38,15 @@ public class CartController : ControllerBase
     
     
     [HttpPost("api/updateQuantity")]
-    public async Task UpdateQuantity([FromBody] CartIdClass cart)
+    public async Task UpdateQuantity([FromBody] QuantityClass cart)
     {
         await _cartService.UpdateQuantity(cart);
+    }
+    
+    [HttpPost("api/removeItem")]
+    public async Task RemoveItem([FromBody] CartIdItem cart)
+    {
+        await _cartService.RemoveItem(cart);
     }
     
 }

@@ -5,6 +5,7 @@ public interface ICartService
     Task AddItemToCart(CartItem definition);
     Task<List<CartProductCombo>> GetCartItems(string userId);
     
-    Task UpdateQuantity(CartIdClass cart);
+    Task UpdateQuantity(QuantityClass cart);
+    Task RemoveItem(CartIdItem cart);
 }
 

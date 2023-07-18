@@ -63,10 +63,16 @@ public class CartProductCombo
     public decimal Cost { get; set; }
 }
 
-public class CartIdClass
+public class QuantityClass
 {
     public string CartId { get; set; } = "";
     
     public int QuantityChange { get; set; } = 0;
+
+}
+
+public class CartIdItem
+{
+    public string CartId { get; set; } = "";
 
 }
