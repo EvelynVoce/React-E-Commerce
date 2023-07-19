@@ -46,9 +46,9 @@ const Card = ({triggerEffect, cartId, title, initial_quantity, imagePath, retail
                     <h5>{title}</h5>
                     <p>{retailer}</p>
                     <p>£{cost}</p>
-                    <FontAwesomeIcon onClick={decrementCount} icon={faMinus} />
+                    <FontAwesomeIcon className="quantity-button" onClick={decrementCount} icon={faMinus} />
                     <span className="mx-4">{quantity}</span>
-                    <FontAwesomeIcon onClick={incrementCount} icon={faPlus}/>
+                    <FontAwesomeIcon className="quantity-button" onClick={incrementCount} icon={faPlus}/>
                 </div>
 
                 <Modal

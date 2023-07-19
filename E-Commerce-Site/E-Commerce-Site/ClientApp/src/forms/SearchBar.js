@@ -23,7 +23,6 @@ const SearchBar = ({ onSearch }) => {
                 value={searchTerm}
                 onChange={handleInputChange}
             />
-            <button type="submit" className="button-style">Search</button>
         </form>
     );
 };

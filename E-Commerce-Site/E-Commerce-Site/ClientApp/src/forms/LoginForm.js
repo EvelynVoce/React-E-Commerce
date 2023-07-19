@@ -5,6 +5,7 @@ import {login} from "../api/account";
 const LoginForm = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     
     const history = useHistory();
     
@@ -15,6 +16,9 @@ const LoginForm = ({ onLogin }) => {
         if (userId) {
             onLogin(username, userId);
             history.push('/');
+        }
+        else {
+            setError("invalid login details");
         }
     };
 
@@ -36,7 +40,7 @@ const LoginForm = ({ onLogin }) => {
                     onChange={(event) => setUsername(event.target.value)}
                     required
                 />
-
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <label> Password: </label>
                 <input
                     type="password"

@@ -39,23 +39,21 @@ const NavMenu = ({ username, userId }) => {
           <Container>
             <NavbarBrand className="nav-icon" onClick={handleHomeClick}>Shop</NavbarBrand>
             <Nav className="ml-auto" navbar>
-              <FontAwesomeIcon
-                  icon={faShoppingBag}
-                  className="nav-icon mx-5"
-                  onClick={handleCartClick}
-              />
-              {showUsername && (
-                  <div className="username">
-                    {username}
-                  </div>
-              )}
-              <FontAwesomeIcon
-                  icon={faUser}
-                  className="nav-icon"
-                  onClick={handleUserClick}
-                  onMouseEnter={handleIconHover}
-                  onMouseLeave={handleIconLeave}
-              />
+              <div>
+                <FontAwesomeIcon
+                    icon={faShoppingBag}
+                    className="nav-icon mx-5"
+                    onClick={handleCartClick}
+                />
+                {showUsername && <div className="username">{username}</div>}
+                <FontAwesomeIcon
+                    icon={faUser}
+                    className="nav-icon"
+                    onClick={handleUserClick}
+                    onMouseEnter={handleIconHover}
+                    onMouseLeave={handleIconLeave}
+                />
+              </div>
             </Nav>
           </Container>
         </Navbar>
