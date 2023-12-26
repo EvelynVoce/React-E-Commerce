@@ -31,3 +31,12 @@ async def get_product_types():
         cursor.execute(command)
         results = [row[0] for row in cursor]
     return results
+
+
+async def get_product_type(product_type: str):
+    command = f"EXEC dbo.get_product_type @productType='{product_type}'"
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command)
+        results = [Products(*row) for row in cursor]
+    return results
