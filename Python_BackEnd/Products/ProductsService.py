@@ -22,3 +22,12 @@ async def get_item_details(item_id: str):
 
     if row:
         return [SpecificProduct(*row)]
+
+
+async def get_product_types():
+    command = f"EXEC dbo.get_product_types"
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command)
+        results = [row[0] for row in cursor]
+    return results

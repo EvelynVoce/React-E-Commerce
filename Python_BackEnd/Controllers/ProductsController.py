@@ -19,3 +19,9 @@ async def get_item_details(item_id: str):
 async def get_products():
     results = await ProductsService.get_products()
     return results
+
+
+@app.get("/api/getProductTypes/")
+async def get_product_types():
+    product_types = await ProductsService.get_product_types()
+    return product_types
