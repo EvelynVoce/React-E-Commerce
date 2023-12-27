@@ -14,6 +14,12 @@ async def get_available_user(username: str):
 async def add_user(request: Request):
     data = await request.json()
     user_instance = User.from_dict(data)
-    print(user_instance)
     await UsersService.add_user(user_instance)
-0()
+
+
+@app.post("/api/login")
+async def login(request: Request):
+    data = await request.json()
+    user_instance = User.from_dict(data)
+    return await UsersService.login(user_instance)
+

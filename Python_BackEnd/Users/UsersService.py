@@ -19,3 +19,17 @@ async def add_user(user: User):
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command)
+
+
+async def login(user: User):
+    command = f"EXEC dbo.login @username='{user.username}', @password='{user.password}'"
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command)
+        result = cursor.fetchone()
+        if result:
+            user_id: str = result[0]
+            user_uid = uuid.UUID(user_id)
+            return user_uid
+
+
