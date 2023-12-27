@@ -1,5 +1,14 @@
 from AppConfig import app
 import Cart.CartService as CartService
+from fastapi import Request
+from Cart.Models.Cart import CartItem
+
+
+@app.post("/api/addItemToCart")
+async def add_item_to_cart(request: Request):
+    data = await request.json()
+    cart_instance = CartItem.from_dict(data)
+    await CartService.add_item_to_cart(cart_instance)
 
 
 @app.get("/api/getCartItems/{userId}")
