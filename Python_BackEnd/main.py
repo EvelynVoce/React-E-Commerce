@@ -1,3 +1,4 @@
 from AppConfig import app
 import Controllers.ProductsController
 import Controllers.UsersController
+import Controllers.CartController
