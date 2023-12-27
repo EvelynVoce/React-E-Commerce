@@ -1,5 +1,5 @@
 from database import get_db_connection
-from Cart.Models.Cart import CartItem, CartProductCombo
+from Cart.Models.Cart import CartItem, CartProductCombo, QuantityClass
 
 
 async def add_item_to_cart(cart: CartItem):
@@ -15,4 +15,11 @@ async def get_cart_items(user_id: str):
     with db.cursor() as cursor:
         cursor.execute(command)
         results = [CartProductCombo(*row) for row in cursor]
-    return results 
+    return results
+
+
+async def update_quantity(cart: QuantityClass):
+    command = f"EXEC dbo.alterQuantity @cartId='{cart.cartId}', @quantity_change='{cart.quantityChange}'"
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command)

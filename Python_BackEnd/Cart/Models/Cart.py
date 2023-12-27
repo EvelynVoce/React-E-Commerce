@@ -27,3 +27,12 @@ class CartProductCombo:
     cost: float = 0.0
 
 
+@dataclass
+class QuantityClass:
+    cartId: str = ""
+    quantityChange: int = 0
+
+    @classmethod
+    def from_dict(cls, cart_dict):
+        print("test= ", cart_dict.get('cartId', ''))
+        return cls(cartId=uuid.UUID(cart_dict.get('cartId', '')), quantityChange=cart_dict.get('quantityChange', ''))
