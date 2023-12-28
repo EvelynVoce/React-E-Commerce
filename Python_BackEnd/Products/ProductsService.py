@@ -9,7 +9,6 @@ async def get_products():
     with db.cursor() as cursor:
         cursor.execute(command)
         results = [Products(*row) for row in cursor]
-
     return results
 
 

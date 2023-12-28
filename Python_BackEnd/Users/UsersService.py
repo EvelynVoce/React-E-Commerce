@@ -31,5 +31,3 @@ async def login(user: User):
             user_id: str = result[0]
             user_uid = uuid.UUID(user_id)
             return user_uid
-
-

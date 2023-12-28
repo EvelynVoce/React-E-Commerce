@@ -22,3 +22,9 @@ async def update_quantity(request: Request):
     data = await request.json()
     quantity_instance = QuantityClass.from_dict(data)
     await CartService.update_quantity(quantity_instance)
+
+
+@app.post("/api/removeItem")
+async def remove_item(request: Request):
+    data = await request.json()
+    await CartService.remove_item(data['cartId'])

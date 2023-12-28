@@ -23,3 +23,10 @@ async def update_quantity(cart: QuantityClass):
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command)
+
+
+async def remove_item(cart_id: str):
+    command = f"EXEC dbo.remove_item @cartId='{cart_id}'"
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command)
