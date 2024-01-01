@@ -4,28 +4,34 @@ import uuid
 
 
 async def get_available_user(username: str):
-    command = f"EXEC dbo.available_username @username='{username}'"
+    command = f"EXEC dbo.available_username @username=?"
+    params = (username,)
     db = get_db_connection()
     with db.cursor() as cursor:
-        cursor.execute(command)
+        cursor.execute(command, params)
         is_taken = cursor.fetchone()
-    print("not is taken ", not is_taken)
     return not is_taken
 
 
 async def add_user(user: User):
     user_id = uuid.uuid4()
-    command = f"EXEC dbo.addUser @userId='{user_id}', @username='{user.username}', @password='{user.password}'"
+    command = f"EXEC dbo.addUser @userId=?, @username=?, @password=?"
+    params = (
+        user_id,
+        user.username,
+        user.password
+    )
     db = get_db_connection()
     with db.cursor() as cursor:
-        cursor.execute(command)
+        cursor.execute(command, params)
 
 
 async def login(user: User):
-    command = f"EXEC dbo.login @username='{user.username}', @password='{user.password}'"
+    command = f"EXEC dbo.login @username=?, @password=?"
+    params = (user.username, user.password)
     db = get_db_connection()
     with db.cursor() as cursor:
-        cursor.execute(command)
+        cursor.execute(command, params)
         result = cursor.fetchone()
         if result:
             user_id: str = result[0]

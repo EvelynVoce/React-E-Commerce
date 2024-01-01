@@ -13,10 +13,11 @@ async def get_products():
 
 
 async def get_item_details(item_id: str):
-    command = f"EXEC dbo.get_item_details @itemId='{item_id}'"
+    command = f"EXEC dbo.get_item_details @itemId=?"
+    params = (item_id,)
     db = get_db_connection()
     with db.cursor() as cursor:
-        cursor.execute(command)
+        cursor.execute(command, params)
         row = cursor.fetchone()
 
     if row:
@@ -33,9 +34,10 @@ async def get_product_types():
 
 
 async def get_product_type(product_type: str):
-    command = f"EXEC dbo.get_product_type @productType='{product_type}'"
+    command = f"EXEC dbo.get_product_type @productType=?"
+    params = (product_type,)
     db = get_db_connection()
     with db.cursor() as cursor:
-        cursor.execute(command)
+        cursor.execute(command, params)
         results = [Products(*row) for row in cursor]
     return results
