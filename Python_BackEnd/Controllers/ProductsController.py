@@ -1,17 +1,11 @@
 from AppConfig import app
-from fastapi import HTTPException
 import uuid
 import Products.ProductsService as ProductsService
 
 
 @app.get("/api/getItemDetails/{item_id}")
-async def get_item_details(item_id: str):
-    try:
-        item_uuid = uuid.UUID(item_id)
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Invalid item_id format. Must be a valid UUID.")
-
-    details = await ProductsService.get_item_details(item_uuid)
+async def get_item_details(item_id: uuid.UUID):
+    details = await ProductsService.get_item_details(item_id)
     return details
 
 

@@ -4,7 +4,7 @@ from database import get_db_connection
 
 
 async def get_products():
-    command = f"EXEC dbo.get_products"
+    command = "EXEC dbo.get_products"
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command)
@@ -13,7 +13,7 @@ async def get_products():
 
 
 async def get_item_details(item_id: str):
-    command = f"EXEC dbo.get_item_details @itemId=?"
+    command = "EXEC dbo.get_item_details @itemId=?"
     params = (item_id,)
     db = get_db_connection()
     with db.cursor() as cursor:
@@ -25,7 +25,7 @@ async def get_item_details(item_id: str):
 
 
 async def get_product_types():
-    command = f"EXEC dbo.get_product_types"
+    command = "EXEC dbo.get_product_types"
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command)
@@ -34,7 +34,7 @@ async def get_product_types():
 
 
 async def get_product_type(product_type: str):
-    command = f"EXEC dbo.get_product_type @productType=?"
+    command = "EXEC dbo.get_product_type @productType=?"
     params = (product_type,)
     db = get_db_connection()
     with db.cursor() as cursor:
@@ -44,7 +44,7 @@ async def get_product_type(product_type: str):
 
 
 async def search(criteria: str):
-    command = f"EXEC dbo.search_products @criteria=?"
+    command = "EXEC dbo.search_products @criteria=?"
     params = (criteria,)
     db = get_db_connection()
     with db.cursor() as cursor:

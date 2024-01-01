@@ -16,7 +16,7 @@ async def add_item_to_cart(cart: CartItem):
 
 
 async def get_cart_items(user_id: str):
-    command = f"EXEC dbo.get_cart_items @userId=?"
+    command = "EXEC dbo.get_cart_items @userId=?"
     params = (user_id,)
     db = get_db_connection()
     with db.cursor() as cursor:
@@ -26,7 +26,7 @@ async def get_cart_items(user_id: str):
 
 
 async def update_quantity(cart: QuantityClass):
-    command = f"EXEC dbo.alterQuantity @cartId=?, @quantity_change=?"
+    command = "EXEC dbo.alterQuantity @cartId=?, @quantity_change=?"
     params = (cart.cartId, cart.quantityChange)
     db = get_db_connection()
     with db.cursor() as cursor:
@@ -34,7 +34,7 @@ async def update_quantity(cart: QuantityClass):
 
 
 async def remove_item(cart_id: str):
-    command = f"EXEC dbo.remove_item @cartId=?"
+    command = "EXEC dbo.remove_item @cartId=?"
     params = (cart_id,)
     db = get_db_connection()
     with db.cursor() as cursor:

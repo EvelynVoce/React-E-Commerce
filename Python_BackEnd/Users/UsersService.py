@@ -15,7 +15,7 @@ async def get_available_user(username: str):
 
 async def add_user(user: User):
     user_id = uuid.uuid4()
-    command = f"EXEC dbo.addUser @userId=?, @username=?, @password=?"
+    command = "EXEC dbo.addUser @userId=?, @username=?, @password=?"
     params = (
         user_id,
         user.username,
@@ -27,7 +27,7 @@ async def add_user(user: User):
 
 
 async def login(user: User):
-    command = f"EXEC dbo.login @username=?, @password=?"
+    command = "EXEC dbo.login @username=?, @password=?"
     params = (user.username, user.password)
     db = get_db_connection()
     with db.cursor() as cursor:
