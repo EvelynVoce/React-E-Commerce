@@ -3,7 +3,7 @@ from Users.Models.Users import User
 import uuid
 
 
-async def get_available_user(username: str):
+async def get_available_user(username: str) -> bool:
     command = f"EXEC dbo.available_username @username=?"
     params = (username,)
     db = get_db_connection()
@@ -13,7 +13,7 @@ async def get_available_user(username: str):
     return not is_taken
 
 
-async def add_user(user: User):
+async def add_user(user: User) -> None:
     user_id = uuid.uuid4()
     command = "EXEC dbo.addUser @userId=?, @username=?, @password=?"
     params = (
@@ -26,7 +26,7 @@ async def add_user(user: User):
         cursor.execute(command, params)
 
 
-async def login(user: User):
+async def login(user: User) -> uuid.UUID:
     command = "EXEC dbo.login @username=?, @password=?"
     params = (user.username, user.password)
     db = get_db_connection()

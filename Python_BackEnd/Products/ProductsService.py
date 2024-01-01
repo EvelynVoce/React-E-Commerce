@@ -12,7 +12,7 @@ async def get_products():
     return results
 
 
-async def get_item_details(item_id: str):
+async def get_item_details(item_id: str) -> list[SpecificProduct]:
     command = "EXEC dbo.get_item_details @itemId=?"
     params = (item_id,)
     db = get_db_connection()
@@ -24,7 +24,7 @@ async def get_item_details(item_id: str):
         return [SpecificProduct(*row)]
 
 
-async def get_product_types():
+async def get_product_types() -> list[str]:
     command = "EXEC dbo.get_product_types"
     db = get_db_connection()
     with db.cursor() as cursor:
@@ -33,7 +33,7 @@ async def get_product_types():
     return results
 
 
-async def get_product_type(product_type: str):
+async def get_product_type(product_type: str) -> list[Products]:
     command = "EXEC dbo.get_product_type @productType=?"
     params = (product_type,)
     db = get_db_connection()
@@ -43,7 +43,7 @@ async def get_product_type(product_type: str):
     return results
 
 
-async def search(criteria: str):
+async def search(criteria: str) -> list[Products]:
     command = "EXEC dbo.search_products @criteria=?"
     params = (criteria,)
     db = get_db_connection()

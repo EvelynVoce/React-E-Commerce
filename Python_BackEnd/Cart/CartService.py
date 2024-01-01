@@ -2,7 +2,7 @@ from database import get_db_connection
 from Cart.Models.Cart import CartItem, CartProductCombo, QuantityClass
 
 
-async def add_item_to_cart(cart: CartItem):
+async def add_item_to_cart(cart: CartItem) -> None:
     command = "EXEC dbo.addItemToCart @cartId=?, @userId=?, @productId=?, @quantity=?"
     params = (
         cart.cartId,
@@ -15,7 +15,7 @@ async def add_item_to_cart(cart: CartItem):
         cursor.execute(command, params)
 
 
-async def get_cart_items(user_id: str):
+async def get_cart_items(user_id: str) -> list[CartProductCombo]:
     command = "EXEC dbo.get_cart_items @userId=?"
     params = (user_id,)
     db = get_db_connection()
@@ -25,7 +25,7 @@ async def get_cart_items(user_id: str):
     return results
 
 
-async def update_quantity(cart: QuantityClass):
+async def update_quantity(cart: QuantityClass) -> None:
     command = "EXEC dbo.alterQuantity @cartId=?, @quantity_change=?"
     params = (cart.cartId, cart.quantityChange)
     db = get_db_connection()
@@ -33,7 +33,7 @@ async def update_quantity(cart: QuantityClass):
         cursor.execute(command, params)
 
 
-async def remove_item(cart_id: str):
+async def remove_item(cart_id: str) -> None:
     command = "EXEC dbo.remove_item @cartId=?"
     params = (cart_id,)
     db = get_db_connection()
