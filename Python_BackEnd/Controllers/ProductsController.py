@@ -31,3 +31,9 @@ async def get_product_types():
 async def get_product_type(product_type: str):
     products = await ProductsService.get_product_type(product_type)
     return products
+
+
+@app.get("/api/search/{criteria}")
+async def get_product_type(criteria: str):
+    matched_products = await ProductsService.search(f"%{criteria}%")
+    return matched_products

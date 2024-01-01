@@ -41,3 +41,13 @@ async def get_product_type(product_type: str):
         cursor.execute(command, params)
         results = [Products(*row) for row in cursor]
     return results
+
+
+async def search(criteria: str):
+    command = f"EXEC dbo.search_products @criteria=?"
+    params = (criteria,)
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command, params)
+        results = [Products(*row) for row in cursor]
+    return results
