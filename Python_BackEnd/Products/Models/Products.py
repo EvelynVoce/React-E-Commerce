@@ -1,9 +1,10 @@
+import uuid
 from dataclasses import dataclass
 
 
 @dataclass
 class Products:
-    id: str = ""
+    id: uuid.UUID = ""
     title: str = ""
     imagePath: str = ""
     retailer: str = ""

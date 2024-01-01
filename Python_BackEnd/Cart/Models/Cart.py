@@ -4,9 +4,9 @@ import uuid
 
 @dataclass
 class CartItem:
-    cartId: str = ""
-    userId: str = ""
-    productId: str = ""
+    cartId: uuid.UUID = ""
+    userId: uuid.UUID = ""
+    productId: uuid.UUID = ""
     quantity: int = 0
 
     @classmethod
@@ -19,7 +19,7 @@ class CartItem:
 
 @dataclass
 class CartProductCombo:
-    cartId: str = ""
+    cartId: uuid.UUID = ""
     quantity: int = 0
     title: str = ""
     imagePath: str = ""
@@ -29,10 +29,9 @@ class CartProductCombo:
 
 @dataclass
 class QuantityClass:
-    cartId: str = ""
+    cartId: uuid.UUID = ""
     quantityChange: int = 0
 
     @classmethod
     def from_dict(cls, cart_dict):
-        print("test= ", cart_dict.get('cartId', ''))
         return cls(cartId=uuid.UUID(cart_dict.get('cartId', '')), quantityChange=cart_dict.get('quantityChange', ''))
