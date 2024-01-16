@@ -3,16 +3,18 @@ from Users.Models.Users import User
 import uuid
 
 
+# Returns a boolean value representing if username is taken or not
 async def get_available_user(username: str) -> bool:
     command = f"EXEC dbo.available_username @username=?"
-    params = (username,)
+    params = username
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command, params)
-        is_taken = cursor.fetchone()
+        is_taken: bool = cursor.fetchone()
     return not is_taken
 
 
+# Adds a new user to the database
 async def add_user(user: User) -> None:
     user_id = uuid.uuid4()
     command = "EXEC dbo.addUser @userId=?, @username=?, @password=?"
@@ -26,6 +28,7 @@ async def add_user(user: User) -> None:
         cursor.execute(command, params)
 
 
+# Login and returns the userID of the user if login successful
 async def login(user: User) -> uuid.UUID:
     command = "EXEC dbo.login @username=?, @password=?"
     params = (user.username, user.password)
