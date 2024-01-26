@@ -3,11 +3,14 @@ import { getItemDetails } from "../api/products";
 import {Button} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addItemToCart} from "../api/cart";
+import {useHistory} from 'react-router-dom';
 
 const ViewItem = ({ userId }) => {
     const [itemData, setItemData] = useState(null);
     const [hoverLiked, setHoverLiked] = useState(false);
     const [liked, setLiked] = useState(false);
+
+    const history = useHistory();
     
     const handleAddToCart = async () => {
         const itemId = getCookie("itemId");
@@ -16,6 +19,7 @@ const ViewItem = ({ userId }) => {
         console.log(itemId);
         //Send to backend where it then generates cartID and writes to db 
         await addItemToCart(userId, itemId, quantity);
+        history.push('/');
 
     }
 
