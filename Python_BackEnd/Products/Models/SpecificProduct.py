@@ -1,10 +1,9 @@
 import uuid
-from dataclasses import dataclass
 from decimal import Decimal
+from pydantic import BaseModel
 
 
-@dataclass
-class SpecificProduct:
+class SpecificProduct(BaseModel):
     id: uuid.UUID = ""
     title: str = ""
     description: str = ""

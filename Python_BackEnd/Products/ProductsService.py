@@ -17,7 +17,8 @@ async def get_products() -> list[Products]:
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command)
-        results = [Products(uuid.UUID(row[0]), *row[1:]) for row in cursor]
+        results = [Products(id=uuid.UUID(row[0]), title=row[1], imagePath=row[2], retailer=row[3], cost=row[4])
+                   for row in cursor]
     return results
 
 
@@ -38,7 +39,9 @@ async def get_item_details(item_id: uuid.UUID) -> Optional[list[SpecificProduct]
         cursor.execute(command, params)
         row = cursor.fetchone()
 
-    return [SpecificProduct(uuid.UUID(row[0]), *row[1:])] if row else None
+    if row:
+        return [SpecificProduct(id=uuid.UUID(row[0]), title=row[1], description=row[2],
+                                imagePath=row[3], retailer=row[4], cost=row[5], link=row[6], product_type=row[7])]
 
 
 async def get_product_types() -> list[str]:
@@ -68,7 +71,8 @@ async def get_product_type(product_type: str) -> Optional[list[Products]]:
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command, params)
-        results = [Products(uuid.UUID(row[0]), *row[1:]) for row in cursor]
+        results = [Products(id=uuid.UUID(row[0]), title=row[1], imagePath=row[2], retailer=row[3], cost=row[4])
+                   for row in cursor]
     return results if results else None
 
 
@@ -84,5 +88,6 @@ async def search(criteria: str) -> list[Products]:
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command, params)
-        results = [Products(uuid.UUID(row[0]), *row[1:]) for row in cursor]
+        results = [Products(id=uuid.UUID(row[0]), title=row[1], imagePath=row[2], retailer=row[3], cost=row[4])
+                   for row in cursor]
     return results

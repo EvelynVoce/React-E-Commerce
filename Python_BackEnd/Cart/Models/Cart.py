@@ -1,9 +1,8 @@
-from dataclasses import dataclass
 import uuid
+from pydantic import BaseModel
 
 
-@dataclass
-class CartItem:
+class CartItem(BaseModel):
     cartId: uuid.UUID = ""
     userId: uuid.UUID = ""
     productId: uuid.UUID = ""
@@ -17,8 +16,7 @@ class CartItem:
                    quantity=cart_dict.get('quantity', ''))
 
 
-@dataclass
-class CartProductCombo:
+class CartProductCombo(BaseModel):
     cartId: uuid.UUID = ""
     quantity: int = 0
     title: str = ""
@@ -27,8 +25,7 @@ class CartProductCombo:
     cost: float = 0.0
 
 
-@dataclass
-class QuantityClass:
+class QuantityClass(BaseModel):
     cartId: uuid.UUID = ""
     quantityChange: int = 0
 
