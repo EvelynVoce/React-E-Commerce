@@ -14,7 +14,13 @@ const NavMenu = ({ username, userId }) => {
   const history = useHistory();
 
   const handleHomeClick = () => {
-    history.push('/');
+    const currentLocation = history.location.pathname;
+
+    if (currentLocation === '/') {
+      window.location.reload();
+    } else {
+      history.push('/');
+    }
   }
   const handleCartClick = async () => {
     history.push('/viewCart');
