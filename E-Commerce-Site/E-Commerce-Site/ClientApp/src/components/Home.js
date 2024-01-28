@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from "../forms/SearchBar";
 
-const Home = () => {
+const Home = ({ userId }) => {
     const [jsonData, setJsonData] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [filterOptions, setFilterOptions] = useState([]);
@@ -68,7 +68,7 @@ const Home = () => {
                     )}
                 </div>
             </div>
-            <ProductCards data={jsonData} />
+            <ProductCards userId={userId} productData={jsonData} />
         </div>
     );
 };

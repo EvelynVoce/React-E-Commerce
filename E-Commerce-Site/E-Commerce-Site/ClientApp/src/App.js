@@ -21,7 +21,7 @@ const App = () => {
       <Layout username={username} userId={userID}>
 
         <Route exact path='/'>
-            <Home/>
+            <Home userId={userID}/>
         </Route>
           
         <Route exact path='/products/:productName'>

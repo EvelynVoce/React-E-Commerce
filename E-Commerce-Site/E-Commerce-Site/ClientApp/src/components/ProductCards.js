@@ -1,8 +1,9 @@
 ﻿import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {addLikedItem} from "../api/liked_items";
 
-const Card = ({ id, title, imagePath, retailer, cost }) => {
+const Card = ({userId, itemId, title, imagePath, retailer, cost}) => {
     const [hoverLiked, setHoverLiked] = useState(false);
     const [liked, setLiked] = useState(false);
     
@@ -10,7 +11,7 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
     const decodedProductName  = decodeURIComponent(title).replace(/\s+/g, "-");
     
     const handleClick = () => {
-        document.cookie = `itemId=${id}`;
+        document.cookie = `itemId=${itemId}`;
         history.push(`/products/${decodedProductName }`);
     };
 
@@ -21,15 +22,16 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
     const handleHoverOut = () => {
         setHoverLiked(liked);
     };
-
-    const handleLike = (e) => {
+    
+    const handleLike = async(e) => {
         e.stopPropagation();
         setLiked(!liked);
+        await addLikedItem(userId, itemId);
     };
 
     return (
         <div className="col mb-3">
-            <div className="card product_card h-100" id={id} onClick={handleClick}>
+            <div className="card product_card h-100" id={itemId} onClick={handleClick}>
                 <img
                     src={`images/${imagePath}`}
                     alt={title}
@@ -61,11 +63,11 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
     );
 };
 
-const ProductCards = ({ data }) => {
+const ProductCards = ({ userId, productData }) => {
     return (
         <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4">
-            {data.map((item, index) => (
-                <Card key={index} id={item.id} title={item.title} imagePath={item.imagePath}
+            {productData.map((item, index) => (
+                <Card key={index} userId={userId} itemId={item.id} title={item.title} imagePath={item.imagePath}
                       retailer={item.retailer} cost={item.cost} />
             ))}
         </div>
