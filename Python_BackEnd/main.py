@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from Controllers import ProductsController, UsersController, CartController
+from Controllers import ProductsController, UsersController, CartController, LikedItemsController
 import uvicorn
 
 
@@ -18,6 +18,7 @@ app.add_middleware(
 app.include_router(ProductsController.router, tags=["Products"])
 app.include_router(UsersController.router, tags=["Users"])
 app.include_router(CartController.router, tags=["Cart"])
+app.include_router(LikedItemsController.router, tags=["LikedItems"])
 
 
 if __name__ == "__main__":
