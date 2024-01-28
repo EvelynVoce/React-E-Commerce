@@ -15,8 +15,7 @@ const ViewItem = ({ userId }) => {
     const handleAddToCart = async () => {
         const itemId = getCookie("itemId");
         const quantity = 1;
-
-        console.log(itemId);
+        
         //Send to backend where it then generates cartID and writes to db 
         await addItemToCart(userId, itemId, quantity);
         history.push('/');
