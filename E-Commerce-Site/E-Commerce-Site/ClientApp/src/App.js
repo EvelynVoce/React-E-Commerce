@@ -7,6 +7,7 @@ import ViewItem from "./components/ViewItem";
 import SignupForm from "./forms/SignupForm";
 import LoginForm from "./forms/LoginForm";
 import ViewCart from "./components/ViewCart";
+import ViewLikedItems from "./components/ViewLikedItems";
 
 const App = () => {
     const [username, setUsername] = useState('');
@@ -34,7 +35,11 @@ const App = () => {
 
         <Route exact path='/viewCart'>
             <ViewCart userId={userID}/>
-        </Route>  
+        </Route>
+          
+        <Route exact path='/viewLikedItems'>
+            <ViewLikedItems userId={userID}/>
+        </Route>
       </Layout>
     );
 }
