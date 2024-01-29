@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {addLikedItem} from "../api/liked_items";
 
-const Card = ({userId, itemId, title, imagePath, retailer, cost}) => {
-    const [hoverLiked, setHoverLiked] = useState(false);
-    const [liked, setLiked] = useState(false);
+const Card = ({userId, itemId, title, imagePath, retailer, cost, initial_liked_state}) => {
+    const [hoverLiked, setHoverLiked] = useState(initial_liked_state);
+    const [liked, setLiked] = useState(initial_liked_state);
     
     const history = useHistory();
     const decodedProductName  = decodeURIComponent(title).replace(/\s+/g, "-");
@@ -63,13 +63,17 @@ const Card = ({userId, itemId, title, imagePath, retailer, cost}) => {
     );
 };
 
-const ProductCards = ({ userId, productData }) => {
+const ProductCards = ({ userId, productData, likedItems}) => {
     return (
         <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4">
-            {productData.map((item, index) => (
-                <Card key={index} userId={userId} itemId={item.id} title={item.title} imagePath={item.imagePath}
-                      retailer={item.retailer} cost={item.cost} />
-            ))}
+            {productData.map((item, index) => {
+                const isLiked = likedItems.some(likedItem => likedItem.id === item.id);
+                
+                return (
+                    <Card key={index} userId={userId} itemId={item.id} title={item.title} imagePath={item.imagePath}
+                          retailer={item.retailer} cost={item.cost} initial_liked_state={isLiked}/>
+                );
+            })}
         </div>
     );
 };
