@@ -5,8 +5,7 @@ import './NavMenu.css';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
-import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
-import {getCartItems, getProductsInCart} from "../api/cart";
+import { faShoppingBag, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const NavMenu = ({ username, userId }) => {
   const [showUsername, setShowUsername] = useState(false);
@@ -14,11 +13,21 @@ const NavMenu = ({ username, userId }) => {
   const history = useHistory();
 
   const handleHomeClick = () => {
-    history.push('/');
+    const currentLocation = history.location.pathname;
+
+    if (currentLocation === '/') {
+      window.location.reload();
+    } else {
+      history.push('/');
+    }
   }
+
+  const handleLikedItemClick = async () => {
+    history.push('/viewLikedItems');
+  };
+  
   const handleCartClick = async () => {
     history.push('/viewCart');
-    
   };
   
   const handleUserClick = () => {
@@ -40,6 +49,11 @@ const NavMenu = ({ username, userId }) => {
             <NavbarBrand className="nav-icon" onClick={handleHomeClick}>Shop</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <div>
+                <FontAwesomeIcon
+                    icon={faHeart}
+                    className="nav-icon"
+                    onClick={handleLikedItemClick}
+                />
                 <FontAwesomeIcon
                     icon={faShoppingBag}
                     className="nav-icon mx-5"

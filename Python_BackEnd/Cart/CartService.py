@@ -1,5 +1,6 @@
 from database import get_db_connection
 from Cart.Models.Cart import CartItem, CartProductCombo, QuantityClass
+import uuid
 
 
 async def add_item_to_cart(cart: CartItem) -> None:
@@ -29,7 +30,8 @@ async def get_cart_items(user_id: str) -> list[CartProductCombo]:
     db = get_db_connection()
     with db.cursor() as cursor:
         cursor.execute(command, params)
-        results = [CartProductCombo(*row) for row in cursor]
+        results = [CartProductCombo(cartId=uuid.UUID(row[0]), quantity=row[1], title=row[2],
+                                    imagePath=row[3], retailer=row[4], cost=row[5]) for row in cursor]
     return results
 
 

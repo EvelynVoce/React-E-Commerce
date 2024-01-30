@@ -15,7 +15,7 @@ async def get_item_details(item_id: uuid.UUID) -> list[SpecificProduct]:
 
 @router.get("/api/getProducts/")
 async def get_products() -> list[Products]:
-    products: Products = await ProductsService.get_products()
+    products: list[Products] = await ProductsService.get_products()
     return products
 
 

@@ -4,9 +4,11 @@ import ProductCards from './ProductCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from "../forms/SearchBar";
+import {getLikedItems} from "../api/liked_items";
 
-const Home = () => {
+const Home = ({ userId }) => {
     const [jsonData, setJsonData] = useState([]);
+    const [likedItems, setLikedItems] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [filterOptions, setFilterOptions] = useState([]);
     const dropdownRef = useRef(null);
@@ -40,8 +42,14 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (userId) {
+                const liked_items = await getLikedItems(userId);
+                setLikedItems(liked_items);
+            }
+            
             const data = await getProducts();
             setJsonData(data);
+            
             const product_types = ['All', ...await getProductTypes()];
             setFilterOptions(product_types);
         };
@@ -68,7 +76,7 @@ const Home = () => {
                     )}
                 </div>
             </div>
-            <ProductCards data={jsonData} />
+            <ProductCards userId={userId} productData={jsonData} likedItems={likedItems}/>
         </div>
     );
 };

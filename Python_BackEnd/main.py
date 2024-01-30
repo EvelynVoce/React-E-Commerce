@@ -3,8 +3,8 @@ import logging
 import uuid
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from Controllers import ProductsController, UsersController, CartController
 from starlette.background import BackgroundTask
+from Controllers import ProductsController, UsersController, CartController, LikedItemsController
 import uvicorn
 
 # Setup logging
@@ -65,6 +65,7 @@ async def log_data(request: Request, call_next):
 app.include_router(ProductsController.router, tags=["Products"])
 app.include_router(UsersController.router, tags=["Users"])
 app.include_router(CartController.router, tags=["Cart"])
+app.include_router(LikedItemsController.router, tags=["LikedItems"])
 
 
 if __name__ == "__main__":

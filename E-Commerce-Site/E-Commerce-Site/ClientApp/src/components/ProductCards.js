@@ -1,16 +1,17 @@
-﻿import React, { useState } from 'react';
+﻿import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {addLikedItem} from "../api/liked_items";
 
-const Card = ({ id, title, imagePath, retailer, cost }) => {
-    const [hoverLiked, setHoverLiked] = useState(false);
-    const [liked, setLiked] = useState(false);
-    
+const Card = ({userId, itemId, title, imagePath, retailer, cost, initial_liked_state}) => {
+    const [hoverLiked, setHoverLiked] = useState(initial_liked_state);
+    const [liked, setLiked] = useState(initial_liked_state);
+
     const history = useHistory();
     const decodedProductName  = decodeURIComponent(title).replace(/\s+/g, "-");
     
     const handleClick = () => {
-        document.cookie = `itemId=${id}`;
+        document.cookie = `itemId=${itemId}`;
         history.push(`/products/${decodedProductName }`);
     };
 
@@ -21,15 +22,21 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
     const handleHoverOut = () => {
         setHoverLiked(liked);
     };
-
-    const handleLike = (e) => {
+    
+    const handleLike = async(e) => {
         e.stopPropagation();
         setLiked(!liked);
+        await addLikedItem(userId, itemId);
     };
+
+    useEffect(() => {
+        setHoverLiked(initial_liked_state);
+        setLiked(initial_liked_state);
+    }, [initial_liked_state]);
 
     return (
         <div className="col mb-3">
-            <div className="card product_card h-100" id={id} onClick={handleClick}>
+            <div className="card product_card h-100" id={itemId} onClick={handleClick}>
                 <img
                     src={`images/${imagePath}`}
                     alt={title}
@@ -61,13 +68,16 @@ const Card = ({ id, title, imagePath, retailer, cost }) => {
     );
 };
 
-const ProductCards = ({ data }) => {
+const ProductCards = ({ userId, productData, likedItems}) => {
     return (
         <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4">
-            {data.map((item, index) => (
-                <Card key={index} id={item.id} title={item.title} imagePath={item.imagePath}
-                      retailer={item.retailer} cost={item.cost} />
-            ))}
+            {productData.map((item, index) => {
+                const isLiked = likedItems.some(likedItem => likedItem.id === item.id);
+                return (
+                    <Card key={index} userId={userId} itemId={item.id} title={item.title} imagePath={item.imagePath}
+                          retailer={item.retailer} cost={item.cost} initial_liked_state={isLiked}/>
+                );
+            })}
         </div>
     );
 };
