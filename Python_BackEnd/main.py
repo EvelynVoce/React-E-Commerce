@@ -1,11 +1,10 @@
 import json
 import logging
 import uuid
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-
 from Controllers import ProductsController, UsersController, CartController
+from starlette.background import BackgroundTask
 import uvicorn
 
 # Setup logging
@@ -30,17 +29,37 @@ app.add_middleware(
 )
 
 
+def log_info(req_body, res_body):
+    logging.info(req_body)
+    logging.info(res_body)
 
 
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
+@app.middleware('http')
+async def log_data(request: Request, call_next):
     correlation_id = uuid.uuid4()
-    logger.info(json.dumps({"CorrelationId": f"{correlation_id}",
-                            "request": {"method": f"{request.method}", "url": f"{request.url}"}}))
+    request_body = json.dumps({"CorrelationId": f"{correlation_id}", "request": {"method": request.method, "url": f"{request.url}"}})
+
     response = await call_next(request)
-    logger.info(json.dumps({"CorrelationId": f"{correlation_id}",
-                            "response": {"status code": f"{response.status_code}"}}))
-    return response
+
+    payload_bytes = b''
+    async for chunk in response.body_iterator:
+        payload_bytes += chunk
+    payload = payload_bytes.decode("utf-8")
+
+    response_body = {
+        "CorrelationId": f"{correlation_id}",
+        "response": {
+            "status code": f"{response.status_code}",
+            "payload":  payload
+        }
+    }
+
+    response_body_json = json.dumps(response_body)
+    response_body_unescaped = response_body_json.replace('"[', '[').replace(']"', ']').replace('\\"', '"')
+
+    logging_task = BackgroundTask(log_info, request_body, response_body_unescaped)
+    return Response(content=payload_bytes, status_code=response.status_code,
+                    headers=dict(response.headers), media_type=response.media_type, background=logging_task)
 
 
 app.include_router(ProductsController.router, tags=["Products"])
