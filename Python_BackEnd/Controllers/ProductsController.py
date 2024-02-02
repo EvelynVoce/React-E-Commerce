@@ -3,8 +3,17 @@ import uuid
 import Products.ProductsService as ProductsService
 from Products.Models.Products import Products
 from Products.Models.SpecificProduct import SpecificProduct
+import json
 
 router = APIRouter()
+
+# An example for logging errors
+# @router.get("/test")
+# async def get_item_details() -> None:
+#     try:
+#         _ = 100/0
+#     except ZeroDivisionError:
+#         api_error_logger.exception(json.dumps({"func": "get_item_details", "message": "divide by zero"}))
 
 
 @router.get("/api/getItemDetails/{item_id}")
@@ -13,13 +22,13 @@ async def get_item_details(item_id: uuid.UUID) -> list[SpecificProduct]:
     return details
 
 
-@router.get("/api/getProducts/")
+@router.get("/api/getProducts")
 async def get_products() -> list[Products]:
     products: list[Products] = await ProductsService.get_products()
     return products
 
 
-@router.get("/api/getProductTypes/")
+@router.get("/api/getProductTypes")
 async def get_product_types() -> list[str]:
     product_types: list[str] = await ProductsService.get_product_types()
     return product_types

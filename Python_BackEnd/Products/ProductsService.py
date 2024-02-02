@@ -59,7 +59,7 @@ async def get_product_types() -> list[str]:
     return results
 
 
-async def get_product_type(product_type: str) -> Optional[list[Products]]:
+async def get_product_type(product_type: str) -> list[Products]:
     """
         Get products of a selected type (I.e. all skirts, dresses etc.)
 
@@ -73,7 +73,7 @@ async def get_product_type(product_type: str) -> Optional[list[Products]]:
         cursor.execute(command, params)
         results = [Products(id=uuid.UUID(row[0]), title=row[1], imagePath=row[2], retailer=row[3], cost=row[4])
                    for row in cursor]
-    return results if results else None
+    return results
 
 
 async def search(criteria: str) -> list[Products]:
