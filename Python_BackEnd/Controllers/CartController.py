@@ -2,6 +2,8 @@ import Cart.CartService as CartService
 from fastapi import Request
 from Cart.Models.Cart import CartItem, QuantityClass, CartProductCombo
 from fastapi import APIRouter
+from logger import api_error_logger
+import json
 
 router = APIRouter()
 
@@ -9,8 +11,9 @@ router = APIRouter()
 @router.post("/api/addItemToCart")
 async def add_item_to_cart(request: Request) -> None:
     data = await request.json()
-    cart_instance: CartItem = CartItem.from_dict(data)
-    await CartService.add_item_to_cart(cart_instance)
+    if data['userID']:
+        cart_instance: CartItem = CartItem.from_dict(data)
+        await CartService.add_item_to_cart(cart_instance)
 
 
 @router.get("/api/getCartItems/{userId}")
