@@ -1,9 +1,5 @@
-import json
-import logging
-import uuid
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.background import BackgroundTask
 from Controllers import ProductsController, UsersController, CartController, LikedItemsController
 import uvicorn
 from logger import LoggingMiddleware

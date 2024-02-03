@@ -1,5 +1,5 @@
-import Users.UsersService as UsersService
 from fastapi import Request, APIRouter
+import Users.UsersService as UsersService
 from Users.Models.Users import User
 
 router = APIRouter()

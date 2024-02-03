@@ -1,7 +1,6 @@
+from fastapi import APIRouter, Request
 import LikedItems.LikedItemsService as LikedItemsService
-from fastapi import Request
 from LikedItems.Models.LikedItems import LikedItem
-from fastapi import APIRouter
 from Products.Models.Products import Products
 
 router = APIRouter()
@@ -18,3 +17,9 @@ async def add_liked_item(request: Request) -> None:
 async def get_liked_items(userId: str) -> list[Products]:
     liked_items: list[Products] = await LikedItemsService.get_liked_items(userId)
     return liked_items
+
+
+@router.get("/api/get_is_liked/{userId}/{itemId}")
+async def get_is_liked(userId: str, itemId) -> bool:
+    is_liked: bool = await LikedItemsService.get_is_liked(userId, itemId)
+    return is_liked

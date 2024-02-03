@@ -8,3 +8,7 @@ export const getLikedItems = (userID) => {
     return client.get(`get_liked_items/${userID}`).then(response => response.data);
 }
 
+export const getIsLiked = (userID, productID) => {
+    return client.get(`get_is_liked/${userID}/${productID}`).then(response => response.data);
+}
+

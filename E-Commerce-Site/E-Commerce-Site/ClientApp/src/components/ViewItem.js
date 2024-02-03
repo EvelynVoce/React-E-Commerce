@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { getItemDetails } from "../api/products";
+import { getIsLiked } from "../api/liked_items"
 import {Button} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addItemToCart} from "../api/cart";
@@ -40,6 +41,12 @@ const ViewItem = ({ userId }) => {
             const itemId = getCookie("itemId");
             const data = await getItemDetails(itemId);
             setItemData(data[0]);
+            
+            if (userId) {
+                const liked = await getIsLiked(userId, itemId);
+                setHoverLiked(liked);
+                setLiked(liked);
+            }
         };
         fetchData();
     }, []);
