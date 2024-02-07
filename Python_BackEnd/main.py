@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from Controllers import ProductsController, UsersController, CartController, LikedItemsController
 import uvicorn
-from logger import LoggingMiddleware
+from logging_tools.api_logger_middleware import LoggingMiddleware
 
 app = FastAPI()
 
