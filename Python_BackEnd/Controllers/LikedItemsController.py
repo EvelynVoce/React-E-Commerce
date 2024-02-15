@@ -13,6 +13,13 @@ async def add_liked_item(request: Request) -> None:
     await LikedItemsService.add_liked_item(liked_item_instance)
 
 
+@router.post("/api/removeLikedItem")
+async def add_liked_item(request: Request) -> None:
+    data = await request.json()
+    liked_item_instance: LikedItem = LikedItem.from_dict(data)
+    await LikedItemsService.remove_liked_item(liked_item_instance)
+
+
 @router.get("/api/get_liked_items/{userId}")
 async def get_liked_items(userId: str) -> list[Products]:
     liked_items: list[Products] = await LikedItemsService.get_liked_items(userId)

@@ -1,6 +1,7 @@
 from fastapi import Request, APIRouter
 import Users.UsersService as UsersService
 from Users.Models.Users import User
+import uuid
 
 router = APIRouter()
 
@@ -19,7 +20,7 @@ async def add_user(request: Request) -> None:
 
 
 @router.post("/api/login")
-async def login(request: Request) -> None:
+async def login(request: Request) -> uuid.UUID:
     data = await request.json()
     user_instance = User.from_dict(data)
     return await UsersService.login(user_instance)

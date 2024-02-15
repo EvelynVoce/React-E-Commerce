@@ -19,6 +19,21 @@ async def add_liked_item(liked_items: LikedItem) -> None:
         cursor.execute(command, params)
 
 
+async def remove_liked_item(liked_items: LikedItem) -> None:
+    """
+        Adds an item to the users list of liked_items
+        Returns: None
+   """
+    command = "EXEC dbo.removeLikedItem @userId=?, @productId=?"
+    params = (
+        liked_items.userId,
+        liked_items.productId,
+    )
+    db = get_db_connection()
+    with db.cursor() as cursor:
+        cursor.execute(command, params)
+
+
 async def get_liked_items(user_id: str) -> list[Products]:
     """
         Gets all liked items for a given userID
@@ -36,7 +51,7 @@ async def get_liked_items(user_id: str) -> list[Products]:
 
 async def get_is_liked(user_id: str, item_id: str) -> bool:
     """
-        Gets all liked items for a given userID
+        Find if a given item is liked by a given user
         Returns: bool
    """
     command = "EXEC dbo.get_is_liked @userId=?, @itemId=?"
