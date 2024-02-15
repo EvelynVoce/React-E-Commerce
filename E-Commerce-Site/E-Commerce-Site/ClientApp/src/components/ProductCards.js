@@ -1,7 +1,7 @@
 ﻿import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {addLikedItem} from "../api/liked_items";
+import {addLikedItem, removeLikedItem} from "../api/liked_items";
 
 const Card = ({userId, itemId, title, imagePath, retailer, cost, initial_liked_state}) => {
     const [hoverLiked, setHoverLiked] = useState(initial_liked_state);
@@ -25,8 +25,14 @@ const Card = ({userId, itemId, title, imagePath, retailer, cost, initial_liked_s
     
     const handleLike = async(e) => {
         e.stopPropagation();
-        setLiked(!liked);
-        await addLikedItem(userId, itemId);
+        const updatedLiked = !liked;
+        setLiked(updatedLiked);
+        if (updatedLiked) {
+            await addLikedItem(userId, itemId);
+        }
+        else {
+            await removeLikedItem(userId, itemId);
+        }
     };
 
     useEffect(() => {

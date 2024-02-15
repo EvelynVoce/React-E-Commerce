@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { getItemDetails } from "../api/products";
-import { getIsLiked } from "../api/liked_items"
+import {addLikedItem, getIsLiked, removeLikedItem} from "../api/liked_items"
 import {Button} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addItemToCart} from "../api/cart";
@@ -31,9 +31,17 @@ const ViewItem = ({ userId }) => {
         setHoverLiked(liked);
     };
 
-    const handleLike = (e) => {
+    const handleLike = async(e) => {
         e.stopPropagation();
-        setLiked(!liked);
+        const itemId = getCookie("itemId");
+        const updatedLiked = !liked;
+        setLiked(updatedLiked);
+        if (updatedLiked) {
+            await addLikedItem(userId, itemId);
+        }
+        else {
+            await removeLikedItem(userId, itemId);
+        }
     };
     
     useEffect(() => {
