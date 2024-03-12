@@ -1,11 +1,11 @@
 import React, {ReactNode, useState} from 'react';
 import { Container, Navbar, NavbarBrand, Nav } from 'reactstrap';
+// @ts-ignore
 import {useHistory} from 'react-router-dom';
 import './NavMenu.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBag, faHeart } from '@fortawesome/free-solid-svg-icons';
-
 
 interface NavProps {
   username: string;

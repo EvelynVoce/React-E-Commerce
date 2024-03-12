@@ -9,14 +9,15 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from "../forms/SearchBar";
 // @ts-ignore
 import {getLikedItems} from "../api/liked_items";
+import Products from "../Models/Products";
 
 interface HomeProps {
     userId: string;
 }
 
 const Home: React.FC<HomeProps> = ({ userId }) => {
-    const [jsonData, setJsonData] = useState([]);
-    const [likedItems, setLikedItems] = useState([]);
+    const [jsonData, setJsonData] = useState<Products[]>([]);
+    const [likedItems, setLikedItems] = useState<Products[]>([]);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [filterOptions, setFilterOptions] = useState<string[]>([]);
     const dropdownRef = useRef<HTMLDivElement>(null);
