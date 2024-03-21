@@ -1,44 +1,59 @@
 import React, { useState, useEffect, useRef } from 'react';
+// @ts-ignore
 import {getProducts, getProductType, getProductTypes, search} from '../api/products';
+// @ts-ignore
 import ProductCards from './ProductCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
+// @ts-ignore
 import SearchBar from "../forms/SearchBar";
+// @ts-ignore
 import {getLikedItems} from "../api/liked_items";
+import Products from "../Models/Products";
 
-const Home = ({ userId }) => {
-    const [jsonData, setJsonData] = useState([]);
-    const [likedItems, setLikedItems] = useState([]);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [filterOptions, setFilterOptions] = useState([]);
-    const dropdownRef = useRef(null);
+interface HomeProps {
+    userId: string;
+}
+
+const Home: React.FC<HomeProps> = ({ userId }) => {
+    const [jsonData, setJsonData] = useState<Products[]>([]);
+    const [likedItems, setLikedItems] = useState<Products[]>([]);
+    const [showDropdown, setShowDropdown] = useState<boolean>(false);
+    const [filterOptions, setFilterOptions] = useState<string[]>([]);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const toggleDropdown = () => {
+        console.log("Toggle");
         setShowDropdown(!showDropdown);
     };
 
-    const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setShowDropdown(false);
-        }
-    };
 
-    const handleItemClick = async (item) => {
+    const handleItemClick = async (event: React.MouseEvent<HTMLLIElement>, item: string) => {
+        console.log(item);
         const data = item === "All" ? await getProducts() : await getProductType(item);
         setJsonData(data);
     };
 
-    const handleSearch = async (searchTerm) => {
+    const handleSearch = async (searchTerm: string) => {
         const data = searchTerm === '' ? await getProducts() : await search(searchTerm);
         setJsonData(data);
     };
 
     useEffect(() => {
+        const handleClickOutside = (event: React.MouseEvent<Document>) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowDropdown(false);
+            }
+        };
+
+        // @ts-ignore
         document.addEventListener('mousedown', handleClickOutside);
+
         return () => {
+            // @ts-ignore
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, [dropdownRef, setShowDropdown]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,7 +65,7 @@ const Home = ({ userId }) => {
             const data = await getProducts();
             setJsonData(data);
             
-            const product_types = ['All', ...await getProductTypes()];
+            const product_types: string[] = ['All', ...await getProductTypes()];
             setFilterOptions(product_types);
         };
         fetchData();
@@ -67,7 +82,7 @@ const Home = ({ userId }) => {
                         <div ref={dropdownRef} className="filter_dropdown">
                             <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                                 {filterOptions.map((option) => (
-                                    <li key={option} className="dropdown-item" onClick={() => handleItemClick(option)}>
+                                    <li key={option} className="dropdown-item" onClick={(event) => handleItemClick(event, option)}>
                                         {option}
                                     </li>
                                 ))}

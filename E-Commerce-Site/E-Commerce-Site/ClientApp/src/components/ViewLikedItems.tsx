@@ -1,21 +1,24 @@
 ﻿import React, { useState, useEffect } from 'react';
 import {getLikedItems} from "../api/liked_items";
 import ProductCards from "./ProductCards";
+import Products from "../Models/Products";
 
+interface ViewLikedItemsProps {
+    userId: string;
+}
 
-const ViewLikedItems = ({userId}) => {
-    const [jsonData, setJsonData] = useState([]);
+const ViewLikedItems: React.FC<ViewLikedItemsProps> = ({ userId }) => {
+    const [jsonData, setJsonData] = useState<Products[]>([]);
     const [effectTriggered, setEffectTriggered] = useState(false);
-    const [likedItems, setLikedItems] = useState([]);
+    const [likedItems, setLikedItems] = useState<Products[]>([]);
     
     useEffect(() => {
             const fetchData = async () => {
                 if (userId) {
                     const liked_items = await getLikedItems(userId);
                     setLikedItems(liked_items);
+                    setJsonData(liked_items);
                 }
-                const productList = await getLikedItems(userId);
-                setJsonData(productList);
             };
             fetchData();
         }, [effectTriggered]);

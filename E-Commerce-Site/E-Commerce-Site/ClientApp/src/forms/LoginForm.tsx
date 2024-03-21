@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import {useHistory} from "react-router-dom";
 import {login} from "../api/account";
 
-const LoginForm = ({ onLogin }) => {
+interface LoginFormProps {
+    onLogin: (loggedInUsername: string, userId: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     
     const history = useHistory();
     
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         const userId = await login(username, password);
 
@@ -22,7 +26,7 @@ const LoginForm = ({ onLogin }) => {
         }
     };
 
-    const handleSignup = (event) => {
+    const handleSignup = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         history.push('/signup');
     };

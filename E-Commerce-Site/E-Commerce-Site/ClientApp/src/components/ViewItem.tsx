@@ -5,19 +5,24 @@ import {Button} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addItemToCart} from "../api/cart";
 import {useHistory} from 'react-router-dom';
+import SpecificProduct from "../Models/SpecificProducts";
 
-const ViewItem = ({ userId }) => {
-    const [itemData, setItemData] = useState(null);
+interface ViewItemProps {
+    userId: string;
+}
+
+const ViewItem: React.FC<ViewItemProps> = ({ userId }) => {
+    const [itemData, setItemData] = useState<SpecificProduct>();
     const [hoverLiked, setHoverLiked] = useState(false);
     const [liked, setLiked] = useState(false);
 
     const history = useHistory();
     
     const handleAddToCart = async () => {
-        const itemId = getCookie("itemId");
+        let itemId = getCookie("itemId");
+        itemId = itemId? itemId: ""
         const quantity = 1;
         
-        //Send to backend where it then generates cartID and writes to db 
         await addItemToCart(userId, itemId, quantity);
         history.push('/');
 
@@ -31,9 +36,10 @@ const ViewItem = ({ userId }) => {
         setHoverLiked(liked);
     };
 
-    const handleLike = async(e) => {
+    const handleLike = async(e: { stopPropagation: () => void; }) => {
         e.stopPropagation();
-        const itemId = getCookie("itemId");
+        let itemId = getCookie("itemId");
+        itemId = itemId? itemId: ""
         const updatedLiked = !liked;
         setLiked(updatedLiked);
         if (updatedLiked) {
@@ -46,8 +52,9 @@ const ViewItem = ({ userId }) => {
     
     useEffect(() => {
         const fetchData = async () => {
-            const itemId = getCookie("itemId");
-            const data = await getItemDetails(itemId);
+            let itemId = getCookie("itemId");
+            itemId = itemId? itemId: ""
+            const data: SpecificProduct[] = await getItemDetails(itemId);
             setItemData(data[0]);
             
             if (userId) {
@@ -59,7 +66,7 @@ const ViewItem = ({ userId }) => {
         fetchData();
     }, []);
 
-    function getCookie(name) {
+    function getCookie(name: string) {
         let cookieArr = document.cookie.split("; ");
         let cookieValue = cookieArr.find(row => row.startsWith(`${name}=`));
         return cookieValue ? cookieValue.split("=")[1] : null;

@@ -20,7 +20,7 @@ async def add_user(request: Request) -> None:
 
 
 @router.post("/api/login")
-async def login(request: Request) -> uuid.UUID:
+async def login(request: Request):
     data = await request.json()
     user_instance = User.from_dict(data)
     return await UsersService.login(user_instance)

@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, {ReactNode, useState} from 'react';
 import { Container, Navbar, NavbarBrand, Nav } from 'reactstrap';
+// @ts-ignore
 import {useHistory} from 'react-router-dom';
 import './NavMenu.css';
-
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBag, faHeart } from '@fortawesome/free-solid-svg-icons';
 
-const NavMenu = ({ username, userId }) => {
+interface NavProps {
+  username: string;
+  userId: string;
+}
+
+const NavMenu = ({ username, userId }: NavProps) => {
   const [showUsername, setShowUsername] = useState(false);
   
   const history = useHistory();

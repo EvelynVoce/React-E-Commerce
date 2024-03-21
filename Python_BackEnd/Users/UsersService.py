@@ -29,7 +29,7 @@ async def add_user(user: User) -> None:
 
 
 # Login and returns the userID of the user if login successful
-async def login(user: User) -> uuid.UUID:
+async def login(user: User):
     command = "EXEC dbo.login @username=?, @password=?"
     params = (user.username, user.password)
     db = get_db_connection()
