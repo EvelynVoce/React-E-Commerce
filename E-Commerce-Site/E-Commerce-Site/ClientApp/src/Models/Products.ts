@@ -1,7 +1,7 @@
 ﻿
 interface Products {
     id: string;
-    title: number;
+    title: string;
     imagePath: string;
     retailer: string;
     cost: number;
