@@ -9,7 +9,7 @@ export default function SignupForm() {
 
     const history = useHistory();
     
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if (await availableUsername(username)) {
             await addUser(username, password);
