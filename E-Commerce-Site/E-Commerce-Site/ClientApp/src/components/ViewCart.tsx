@@ -2,15 +2,20 @@
 import {getCartItems} from "../api/cart";
 import CartCards from "./CartCards";
 import {Button} from "reactstrap";
+import cart from "../Models/Cart";
 
 
-const ViewCart = ({userId}) => {
-    const [jsonData, setJsonData] = useState([]);
+interface ViewCartProps {
+    userId: string;
+}
+
+const ViewCart: React.FC<ViewCartProps> = ({ userId }) => {
+    const [jsonData, setJsonData] = useState<cart[]>([]);
     const [effectTriggered, setEffectTriggered] = useState(false);
     
     useEffect(() => {
             const fetchData = async () => {
-                const productList = await getCartItems(userId);
+                const productList: cart[] = await getCartItems(userId);
                 setJsonData(productList);
             };
             fetchData();
